@@ -6,7 +6,7 @@
 #    By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 20:24:21 by vgauther          #+#    #+#              #
-#    Updated: 2019/11/03 00:00:37 by vgauther         ###   ########.fr        #
+#    Updated: 2019/11/03 20:20:03 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,15 +45,16 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 
 INC_NAME = xpm_opener.h
 
-SRC_NAME = 	main.c
+SRC_NAME = 	main.c \
+			color.c
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LFT_PATH)
-	@echo "$(YELLOW)[...] Wolf 3D compilation$(END)"
+	@echo "$(YELLOW)[...] $(NAME) compilation$(END)"
 	@$(CC) -o $(NAME) $(OBJ) -lm -L $(LFT_PATH) -lft
-	@echo "$(GREEN)[✓] Wolf 3D Done$(END)"
+	@echo "$(GREEN)[✓] $(NAME) Done$(END)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
@@ -62,13 +63,13 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 clean:
 	@make -C $(LFT_PATH) clean
 	@rm -rf $(OBJ_PATH)
-	@echo "$(RED)[-] Wolf 3D .o cleaned$(END)"
+	@echo "$(RED)[-] $(NAME) .o cleaned$(END)"
 
 fclean:
 	@make clean
 	@make -C $(LFT_PATH) fclean
 	@rm -f $(NAME)
-	@echo "$(RED)[-] Wolf 3D executable cleaned$(END)"
+	@echo "$(RED)[-] $(NAME) executable cleaned$(END)"
 
 
 clean_o:
