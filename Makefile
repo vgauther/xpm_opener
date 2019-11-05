@@ -6,7 +6,7 @@
 #    By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 20:24:21 by vgauther          #+#    #+#              #
-#    Updated: 2019/11/03 20:20:03 by vgauther         ###   ########.fr        #
+#    Updated: 2019/11/05 16:42:34 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,29 +32,48 @@ WHITE=$'\x1b[37m
 CC = gcc
 CC_FLAGS = -g3 -Wall -Wextra -Werror
 
+SDL_PATH = $(shell pwd)/lib/SDL
 SRC_PATH = ./srcs/
 INC_PATH = ./includes/
 OBJ_PATH = ./obj/
 LFT_PATH = ./libft/
+LIBSDL_ROOT = ./libSDL2/
+LIBSDL_PATH = ./libSDL2/lib/
+SDL_PATHO = ./SDL2-2.0.9/
 
+
+SDL_FLG = -L$(LIBSDL_PATH) -lSDL2
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 INC = $(addprefix -I,$(INC_PATH))
+CURL_SDL = `curl https://www.libsdl.org/release/SDL2-2.0.9.zip -o sdl2.zip`
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 INC_NAME = xpm_opener.h
 
 SRC_NAME = 	main.c \
-			color.c
+			color.c \
+			free_tab.c \
+			hex_to_decimal.c \
+			check.c
+
+ifneq ("$(wildcard $(SDL_PATHO))","")
+	SDL_COMPILED = 1
+else
+	SDL_COMPILED = 0
+endif
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LFT_PATH)
-	@echo "$(YELLOW)[...] $(NAME) compilation$(END)"
-	@$(CC) -o $(NAME) $(OBJ) -lm -L $(LFT_PATH) -lft
-	@echo "$(GREEN)[✓] $(NAME) Done$(END)"
+	@if [ $(SDL_COMPILED) = 0 ]; then \
+	make sdl; \
+	fi
+	@echo "$(YELLOW)[...] Wolf 3D compilation$(END)"
+	@$(CC) -o $(NAME) $(OBJ) -lm -L $(LFT_PATH) -lft $(SDL_FLG)
+	@echo "$(GREEN)[✓] Wolf 3D Done$(END)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
@@ -63,14 +82,40 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 clean:
 	@make -C $(LFT_PATH) clean
 	@rm -rf $(OBJ_PATH)
-	@echo "$(RED)[-] $(NAME) .o cleaned$(END)"
+	@echo "$(RED)[-] Wolf 3D .o cleaned$(END)"
+
+sdl:
+	$(CURL_SDL)
+	@echo "$(GREEN)------------------------------$(END)"
+	@echo "$(GREEN)--SDL ZIP SOURCES DOWNLOADED--$(END)"
+	@echo "$(GREEN)------------------------------$(END)"
+	unzip sdl2.zip
+	rm sdl2.zip
+	mkdir -p $(LIBSDL_ROOT)
+	cd $(SDL_PATHO) && ./configure --prefix=$(PWD)/$(LIBSDL_ROOT)
+	make -C $(SDL_PATHO)
+	make install -C $(SDL_PATHO)
+	@echo "$(GREEN)------------------------------$(END)"
+	@echo "$(GREEN)---------SDL COMPILED---------$(END)"
+	@echo "$(GREEN)------------------------------$(END)"
 
 fclean:
 	@make clean
 	@make -C $(LFT_PATH) fclean
+	@rm -rf SDL2-2.0.9
 	@rm -f $(NAME)
-	@echo "$(RED)[-] $(NAME) executable cleaned$(END)"
+	@echo "$(RED)[-] Wolf 3D executable cleaned$(END)"
 
+
+fcleanr:
+	@make clean
+	@make -C $(LFT_PATH) fclean
+	@rm -f $(NAME)
+	@echo "$(RED)[-] Wolf 3D executable cleaned$(END)"
+
+fclean_all:
+	@make fclean
+	@make cllib
 
 clean_o:
 	@rm -f $(NAME)
@@ -79,3 +124,13 @@ clean_o:
 re:
 	@make fclean
 	@make all
+
+rr:
+	@make fcleanr
+	@make all
+
+clsdl:
+	@make -C ./lib sdl_clean
+
+draw:
+	cd makefile_sources && gcc drawing.c && ./a.out

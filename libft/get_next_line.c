@@ -6,63 +6,70 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 14:19:01 by vgauther          #+#    #+#             */
-/*   Updated: 2019/10/30 16:42:07 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/05 22:14:56 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-int			read_from_fd_into_stock(int const fd, char **stock)
+static int	ft_read(int fd, char **rest)
 {
-	static char	buff[BUFF_SIZE + 1] = { ENDL };
-	int			read_bytes;
-	char		*nstr;
+	int		ret;
+	char	*buff;
+	char	*tmp;
 
-	read_bytes = read(fd, buff, BUFF_SIZE);
-	if (read_bytes > 0)
+	if (!(buff = (char*)malloc(sizeof(char) * BUFF_SIZE + 1)))
+		return (-1);
+	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		buff[read_bytes] = '\0';
-		nstr = ft_strjoin(*stock, buff);
-		if (!nstr)
-			return (-1);
-		free(*stock);
-		*stock = nstr;
+		buff[ret] = '\0';
+		tmp = ft_strjoin(rest[fd], buff);
+		free(rest[fd]);
+		rest[fd] = ft_strdup(tmp);
+		free(tmp);
+		if (ft_strchr(buff, '\n'))
+			break ;
 	}
-	return (read_bytes);
+	free(buff);
+	if (ret == -1)
+		return (-1);
+	return (0);
 }
 
-static void	set_stock(char **stock, char **endl_index)
+static void	ft_free(int fd, char **rest)
 {
-	*endl_index = ft_strdup(*endl_index + 1);
-	free(*stock);
-	*stock = *endl_index;
+	char *tmp;
+
+	tmp = ft_strdup(rest[fd]);
+	free(rest[fd]);
+	rest[fd] = ft_strdup(ft_strchr(tmp, '\n') + 1);
+	free(tmp);
 }
 
-int			get_next_line(int const fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
-	static char	*stock = NULL;
-	char		*endl_index;
-	int			ret;
+	static char	*rest[OPEN_MAX];
+	int			i;
 
-	if (!stock && (stock = (char *)ft_memalloc(sizeof(char))) == NULL)
+	i = 0;
+	if ((fd >= 0 && fd < OPEN_MAX) && !rest[fd])
+		rest[fd] = ft_strnew(1);
+	if (fd < 0 || line == NULL || fd >= OPEN_MAX || BUFF_SIZE < 1 \
+		|| ft_read(fd, rest) == -1)
 		return (-1);
-	endl_index = ft_strchr(stock, ENDL);
-	while (endl_index == NULL)
+	if (rest[fd][0] == '\0')
+		return (0);
+	while (rest[fd][i] != '\0' && rest[fd][i] != '\n')
+		i++;
+	if (rest[fd][i] == '\0' && rest[fd][i - 1] == '\n')
+		return (0);
+	if (rest[fd][i] == '\0')
 	{
-		ret = read_from_fd_into_stock(fd, &stock);
-		if (ret == 0)
-		{
-			if ((endl_index = ft_strchr(stock, '\0')) == stock)
-				return (0);
-		}
-		else if (ret < 0)
-			return (-1);
-		else
-			endl_index = ft_strchr(stock, ENDL);
+		*line = ft_strsub(rest[fd], 0, i);
+		rest[fd][0] = '\0';
+		return (1);
 	}
-	*line = ft_strsub(stock, 0, endl_index - stock);
-	if (!*line)
-		return (-1);
-	set_stock(&stock, &endl_index);
+	*line = ft_strsub(rest[fd], 0, i);
+	ft_free(fd, rest);
 	return (1);
 }
