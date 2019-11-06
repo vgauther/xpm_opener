@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:31:09 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/06 12:35:27 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/06 13:57:45 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,15 +188,16 @@ int construction_of_color_line(char *str, int nb_char_for_pix)
 	}
 	else
 	{
-		while (i < 6)
+		while (i < 6 && tmp[0][nb_char_for_pix + 4 + i])
 		{
 			if ((tmp[0][nb_char_for_pix + 4 + i] >= '0' && tmp[0][nb_char_for_pix + 4 + i] <= '9') || (tmp[0][nb_char_for_pix + 4 + i] >= 'A' && tmp[0][nb_char_for_pix + 4 + i] <= 'F'))
 				i = i + 0;
 			else
 				return (1);
-
 			i++;
 		}
+		if (i != 6)
+			return(1);
 	}
 	free_tab_char(tmp);
 	return (0);
@@ -215,9 +216,67 @@ int recup_char_for_pix_or_nb_of_color(char *str, int t)
 		ret = ft_atoi(tmp2[2]);
 	else if (t == 0)
 		ret = ft_atoi(tmp2[3]);
+	else if (t == 2)
+			ret = ft_atoi(tmp2[0]);
+	else if (t == 3)
+			ret = ft_atoi(tmp2[1]);
 	free_tab_char(tmp);
 	free_tab_char(tmp2);
 	return(ret);
+}
+
+int is_this_a_good_pixel_line(char *str, char* color_ids,  int nb_char_for_pix, int width, int height, int height_count)
+{
+	int i;
+	int x;
+	int c;
+	char **tmp;
+
+	i = 0;
+	x = 0;
+	c = 0;
+	if(is_there_good_init_and_end_of_line(str))
+	{
+		printf("%c|%d|%d\n", str[width * nb_char_for_pix + 1], height, height_count);
+		if (height != height_count)
+		{
+			ft_putstr("here\n");
+			return (1);
+		}
+		else if (height == height_count && str[nb_char_for_pix * width + 1] != '"')
+		{
+			return (1);
+		}
+	}
+	tmp = ft_strsplit(str, '"');
+	if ((int)ft_strlen(tmp[0]) != width * nb_char_for_pix)
+		return(1);
+
+	while (tmp[0][i])
+	{
+		c = 0;
+		while(color_ids[x] && tmp[0][i] && color_ids[x] == tmp[0][i] && c < nb_char_for_pix)
+		{
+			c++;
+			x++;
+			i++;
+		}
+		if (c == nb_char_for_pix)
+		{
+			x = 0;
+			i = i + nb_char_for_pix;
+		}
+		else if (x != 0 && color_ids[x] == 0 && color_ids[x - 1] != tmp[0][i - 1])
+		{
+			return (1);
+		}
+		else if (c == 0)
+			x = x + nb_char_for_pix;
+		else
+			x = x - c + nb_char_for_pix;
+		i = i - c;
+	}
+	return (0);
 }
 
 int check_the_construction(char *name_file)
@@ -233,7 +292,11 @@ int check_the_construction(char *name_file)
 	int nb_of_color;
 	int j;
 	int j2;
+	int width;
+	int height;
+	int height_count;
 
+	height_count = 0;
 	color_count = 0;
 	i = 0;
 	j = 0;
@@ -269,10 +332,29 @@ int check_the_construction(char *name_file)
 					return (1);
 				nb_char_for_pix = recup_char_for_pix_or_nb_of_color(buff, 0);
 				nb_of_color = recup_char_for_pix_or_nb_of_color(buff, 1);
+				height = recup_char_for_pix_or_nb_of_color(buff, 2);
+				width = recup_char_for_pix_or_nb_of_color(buff, 3);
 				color_list_token = 2;
 			}
 		}
-		if (color_list_token == 1)
+		if (color_list_token == 3)
+		{
+			if (buff[0] == '"')
+			{
+				if(is_this_a_good_pixel_line(buff, color_ids, nb_char_for_pix, width, height, height_count))
+				{
+					ft_putstr("-55-\n");
+					return (1);
+				}
+			}
+			else
+			{
+				if(ft_strcmp(buff, "};"))
+					return (1);
+			}
+			height_count++;
+		}
+		else if (color_list_token == 1)
 		{
 			if (buff[0] == '/')
 			{
@@ -286,7 +368,8 @@ int check_the_construction(char *name_file)
 					ft_putstr("12\n");
 					return(1);
 				}
-				color_list_token = 0;
+				color_ids[j2] = 0;
+				color_list_token = 3;
 			}
 			else
 			{
@@ -382,22 +465,17 @@ int is_the_file_ok(t_data *data)
 	if (!(is_the_file_a_correct_file(data->file_name)))
 	{
 		ft_putstr("error : C\n");
-
 		exit(0);
-
-
 	}
 	if (!(is_only_good_char(data->file_name)))
 	{
 		ft_putstr("error : B\n");
-
 		exit(0);
 
 	}
 	if (is_the_file_a_xpm(data->file_name))
 	{
 		ft_putstr("error : A\n");
-
 		exit(0);
 	}
 	return(0);
