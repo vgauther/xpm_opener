@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/06 12:04:15 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/06 14:31:45 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ typedef struct 		s_data
 	int 		nb_char_pix;
 	t_color 	*colors;
 	t_pixel		**pixel;
+	t_color_known *ck;
 }					t_data;
 
-t_color 	color_already_known(char *str);
 t_color    	hex_to_rgb(const char *str);
 void 		free_tab_char(char **tab);
 void 		print_image(t_data *data);
@@ -59,5 +59,9 @@ int 		is_the_file_ok(t_data *data);
 void 		ft_messages(int id, void *data);
 void 		ft_error(int id, void *data);
 int 		ch_color_already_known(char *str);
+void 		structure_of_color(t_data *data);
+t_color 	color_already_known(char *str, t_data *d);
+
+
 
 #endif

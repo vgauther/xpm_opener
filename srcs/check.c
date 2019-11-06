@@ -6,19 +6,23 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:31:09 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/06 14:20:09 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:51:51 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
+int free_tab_char_with_ret_1(char **tab)
+{
+	free_tab_char(tab);
+	return (1);
+}
+
 int is_good_extension(char *str)
 {
 	int len;
 
-	len = ft_strlen(str);
-	len--;
-	ft_putchar(str[len]);
+	len = (int)ft_strlen(str) - 1;
 	if (str[len] != 'm' || str[len - 1] != 'p')
 		return (0);
 	else if (str[len - 2] != 'x' || str[len - 3] != '.')
@@ -26,9 +30,27 @@ int is_good_extension(char *str)
 	return (1);
 }
 
-//static char *_117c9af60d34dbff5a9876c8916555e[] = {
-//static char *_35593249c3b426ed95f09bf9002937f[] = {
-//static char *a0053c01fccc4275c61107f5ef06391d[] = {
+/*
+** checking if 'statich char* ' is at the beginning of this line
+*/
+
+int check_begin_the_static_char(char *str)
+{
+	int ret;
+
+	ret = 0;
+	if (str[0] != 's' || str[1] != 't' || str[2] != 'a')
+		ret = 1;
+	if (str[3] != 't' || str[4] != 'i' || str[5] != 'c')
+		ret = 1;
+	if (str[6] != ' ' || str[11] != ' ' || str[12] != '*')
+		ret = 1;
+	if (str[7] != 'c' || str[8] != 'h' || str[9] != 'a' || str[10] != 'r')
+		ret = 1;
+	if (ret)
+		ft_error(22, NULL);
+	return (ret);
+}
 
 int check_the_static_char(char *str)
 {
@@ -39,12 +61,8 @@ int check_the_static_char(char *str)
 	i = 13;
 	if (ft_strlen(str) != 51)
 		return(1);
-	if (str[0] != 's' || str[1] != 't' || str[2] != 'a' || str[3] != 't' || str[4] != 'i' || str[5] != 'c')
-		return (1);
-	if (str[6] != ' ' || str[11] != ' ' || str[12] != '*')
-		return (1);
-	if (str[7] != 'c' || str[8] != 'h' || str[9] != 'a' || str[10] != 'r')
-		return (1);
+	if (check_begin_the_static_char(str))
+		return(1);
 	end_nb = i + ft_strlen("a0053c01fccc4275c61107f5ef06391d");
 	while (i != end_nb)
 	{
@@ -57,10 +75,14 @@ int check_the_static_char(char *str)
 	while (str[i] && tmp[end_nb])
 	{
 		if (str[i] != tmp[end_nb])
+		{
+			free(tmp);
 			return (1);
+		}
 		i++;
 		end_nb++;
 	}
+	free(tmp);
 	if (str[i])
 		return(1);
 	return(0);
@@ -104,17 +126,27 @@ int check_settings(char *str)
 		return(1);
 	tmp = ft_strsplit(str, '"');
 	if (is_only_numeric_char(tmp[0]))
+	{
+		free_tab_char(tmp);
 		return (1);
+	}
 	if (tmp[0][0] == ' ')
+	{
+		free_tab_char(tmp);
 		return (1);
+	}
 	while(str[i])
 	{
 		if (i != 0 && str[i] == ' ' && str[i - 1] != ' ' && str[i + 1] != ' ')
 			c++;
 		else if (i != 0 && str[i] == ' ' && (str[i - 1] == ' ' || str[i + 1] == ' '))
+		{
+			free_tab_char(tmp);
 			return (1);
+		}
 		i++;
 	}
+	free_tab_char(tmp);
 	if (c != 4)
 		return (1);
 	return (0);
@@ -131,26 +163,36 @@ char *malloc_color_ids(char *str)
 	tmp2 = ft_strsplit(tmp[0], ' ');
 	mal = ft_atoi(tmp2[2]) * ft_atoi(tmp2[3]) + 1;
 	if (!(color_ids = malloc(sizeof(char) * mal)))
+	{
+		free_tab_char(tmp);
+		free_tab_char(tmp2);
 		return (NULL);
+	}
 	free_tab_char(tmp);
 	free_tab_char(tmp2);
 	return(color_ids);
 }
 
+/*
+** cheching if chars in the color place of the are calling a built in color
+*/
+
 int is_this_color_built_in(char *str, int nb_char)
 {
 	int i;
 	char **tmp;
+	int tok;
+
 	i = 0;
-
-
 	while (i < nb_char + 1 && str[i])
 	{
 		str[i] = '1';
 		i++;
 	}
 	tmp = ft_strsplit(str, ' ');
-	return (ch_color_already_known(tmp[1]));
+	tok = ch_color_already_known(tmp[1]);
+	free_tab_char(tmp);
+	return (tok);
 }
 
 int construction_of_color_line(char *str, int nb_char_for_pix)
@@ -159,32 +201,17 @@ int construction_of_color_line(char *str, int nb_char_for_pix)
 	int i;
 
 	i = 0;
-	tmp = ft_strsplit(str, '"');
 	if ((int)ft_strlen(str) < nb_char_for_pix)
-	{
-		ft_putstr("1\n");
 		return(1);
-	}
-	ft_putstr(tmp[0]);
+	tmp = ft_strsplit(str, '"');
 	if (tmp[0][nb_char_for_pix + 1] != 'c')
-	{
-		ft_putchar(tmp[0][nb_char_for_pix + 1]);
-		ft_putstr("2\n");
-
-		return (1);
-	}
+		return (free_tab_char_with_ret_1(tmp));
 	if (tmp[0][nb_char_for_pix + 1] == 'c' && (tmp[0][nb_char_for_pix] != ' ' || tmp[0][nb_char_for_pix + 2] != ' '))
-	{
-		ft_putstr("3\n");
-		return (1);
-	}
+		return (free_tab_char_with_ret_1(tmp));
 	if (tmp[0][nb_char_for_pix + 3] != '#')
 	{
 		if ((is_this_color_built_in(tmp[0], nb_char_for_pix)))
-		{
-			ft_putstr("4\n");
-			return (1);
-		}
+			return (free_tab_char_with_ret_1(tmp));
 	}
 	else
 	{
@@ -193,11 +220,11 @@ int construction_of_color_line(char *str, int nb_char_for_pix)
 			if ((tmp[0][nb_char_for_pix + 4 + i] >= '0' && tmp[0][nb_char_for_pix + 4 + i] <= '9') || (tmp[0][nb_char_for_pix + 4 + i] >= 'A' && tmp[0][nb_char_for_pix + 4 + i] <= 'F'))
 				i = i + 0;
 			else
-				return (1);
+				return (free_tab_char_with_ret_1(tmp));
 			i++;
 		}
 		if (i != 6)
-			return(1);
+			return (free_tab_char_with_ret_1(tmp));
 	}
 	free_tab_char(tmp);
 	return (0);
@@ -244,7 +271,7 @@ int is_this_a_good_pixel_line(char *str, char* color_ids,  int nb_char_for_pix, 
 	}
 	tmp = ft_strsplit(str, '"');
 	if ((int)ft_strlen(tmp[0]) != (width * nb_char_for_pix))
-		return(1);
+		return (free_tab_char_with_ret_1(tmp));
 	while (tmp[0][i])
 	{
 		c = 0;
@@ -260,15 +287,14 @@ int is_this_a_good_pixel_line(char *str, char* color_ids,  int nb_char_for_pix, 
 			i = i + nb_char_for_pix;
 		}
 		else if (x != 0 && color_ids[x] == 0 && color_ids[x - 1] != tmp[0][i - 1])
-		{
-			return (1);
-		}
+			return (free_tab_char_with_ret_1(tmp));
 		else if (c == 0)
 			x = x + nb_char_for_pix;
 		else
 			x = x - c + nb_char_for_pix;
 		i = i - c;
 	}
+	free_tab_char(tmp);
 	return (0);
 }
 
@@ -353,12 +379,12 @@ int check_the_construction(char *name_file)
 			{
 				if (color_count != nb_of_color)
 				{
-					ft_putstr("11\n");
+					ft_error(7, NULL);
 					return (1);
 				}
 				if(ft_strcmp(buff, "/* pixels */"))
 				{
-					ft_putstr("12\n");
+					ft_error(6, buff);
 					return(1);
 				}
 				color_ids[j2] = 0;
@@ -368,12 +394,12 @@ int check_the_construction(char *name_file)
 			{
 				if(is_there_good_init_and_end_of_line(buff))
 				{
-					ft_putstr("6\n");
+					ft_error(8, &i);
 					return (1);
 				}
 				if (construction_of_color_line(buff, nb_char_for_pix))
 				{
-					ft_putstr("6\n");
+					ft_error(10, &i);
 					return (1);
 				}
 				j = 0;
@@ -392,6 +418,7 @@ int check_the_construction(char *name_file)
 		free(buff);
 	}
 	close(fd);
+	free(color_ids);
 	return(0);
 }
 
@@ -418,7 +445,10 @@ int is_the_file_a_correct_file(char *name_file)
 	ret = read(fd, tmp, 2);
 	tmp[ret] = 0;
 	if (tmp[0] == 0)
+	{
+		ft_error(5, NULL);
 		return (0);
+	}
 	ft_messages(3, NULL);
 	close(fd);
 	return (1);
@@ -457,19 +487,17 @@ int is_the_file_ok(t_data *data)
 {
 	if (!(is_the_file_a_correct_file(data->file_name)))
 	{
-		ft_putstr("error : C\n");
 		exit(0);
 	}
 	if (!(is_only_good_char(data->file_name)))
 	{
-		ft_putstr("error : B\n");
 		exit(0);
-
 	}
+	ft_messages(8, NULL);
 	if (is_the_file_a_xpm(data->file_name))
 	{
-		ft_putstr("error : A\n");
 		exit(0);
 	}
+	ft_messages(7, NULL);
 	return(0);
 }

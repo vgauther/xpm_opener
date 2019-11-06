@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:02:27 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/05 23:37:12 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:12:53 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,12 @@ void recup_colors(t_data *data, char *str, int i_color)
 		i++;
 	}
 	tmp3 = ft_strsplit(tmp2[1], ' ');
-	data->colors[i_color] = tmp3[0][0] == '#' ? hex_to_rgb(tmp3[0]) : color_already_known(tmp3[0]);
+	data->colors[i_color] = tmp3[0][0] == '#' ? hex_to_rgb(tmp3[0]) : color_already_known(tmp3[0], data);
 	recup_color_id(data, tmp2[0], i_color);
+	free_tab_char(tmp);
+	free_tab_char(tmp2);
+	free_tab_char(tmp3);
+	free(color_char);
 }
 
 /*
@@ -253,6 +257,13 @@ void open_and_read_file(t_data *data)
 	}
 }
 
+void recup_all_built_in_color(t_data *data)
+{
+	if (!(data->ck = malloc(sizeof(t_color_known) * (235))))
+		exit(0);
+	structure_of_color(data);
+}
+
 int main(int ac, char **av)
 {
 	t_data data;
@@ -264,7 +275,11 @@ int main(int ac, char **av)
 	}
 	data.file_name = ft_strdup(av[1]);
 	ft_messages(1, (void *)data.file_name);
+	recup_all_built_in_color(&data);
+	ft_messages(12, NULL);
+	ft_messages(5, NULL);
  	is_the_file_ok(&data);
+	ft_messages(6, NULL);
 	open_and_read_file(&data);
 	print_image(&data);
 	(void)ac;

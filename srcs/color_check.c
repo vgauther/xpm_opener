@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:41:12 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/06 12:18:34 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/06 14:35:26 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,19 @@ int ch_color_already_known(char *str)
 {
 	t_color_known *ck;
 	int nb_color;
+	int token;
 
+	token = 1;
 	if (!(ck = malloc(sizeof(t_color_known) * 235)))
 		exit(0);
 	nb_color = ch_structure_of_color(ck);
 	while (nb_color >= 0)
 	{
 		if (ft_strcmp(ck[nb_color].name, str) == 0)
-			return(0);
+			token = 0;
+		free(ck[nb_color].name);
 		nb_color--;
 	}
-	return(1);
+	free(ck);
+	return(token);
 }

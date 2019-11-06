@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 22:56:17 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/05 22:56:57 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:28:15 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,16 @@ void print_image(t_data *data)
 	window = NULL;
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
 		return ;
-	window = SDL_CreateWindow("WOLFCRAFT", SDL_WINDOWPOS_CENTERED, \
+	ft_messages(-1, NULL);
+	window = SDL_CreateWindow("XPM", SDL_WINDOWPOS_CENTERED, \
 			SDL_WINDOWPOS_CENTERED, data->width_file, data->height_file, 0);
+	ft_messages(-2, NULL);
 	ren = SDL_CreateRenderer(window, -1, 0);
+	ft_messages(-3, NULL);
 	if (!window || !ren)
 		return ;
 	y = 0;
+	ft_messages(-4, NULL);
 	while (data->height_file > y)
 	{
 		x = 0;
@@ -41,7 +45,9 @@ void print_image(t_data *data)
 		}
 		y++;
 	}
+	ft_messages(-5, NULL);
 	SDL_RenderPresent(ren);
+	ft_messages(-6, NULL);
 	while (SDL_WaitEvent(&event))
 	{
 		 if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)

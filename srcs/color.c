@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:41:12 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/05 23:06:42 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/06 14:31:24 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_color_known ini_color_kn(char *r, char *v, char *b)
 	return (ck);
 }
 
-int structure_of_color(t_color_known *ck)
+void structure_of_color(t_data *data)
 {
 	int fd;
 	int ret;
@@ -38,14 +38,13 @@ int structure_of_color(t_color_known *ck)
 	{
 		tmp = ft_strsplit(buff, ' ');
 		tmp1 = ft_strsplit(tmp[1], ',');
-		ck[i] = ini_color_kn(tmp1[0], tmp1[1], tmp1[2]);
-		ck[i].name = ft_strdup(tmp[0]);
+		data->ck[i] = ini_color_kn(tmp1[0], tmp1[1], tmp1[2]);
+		data->ck[i].name = ft_strdup(tmp[0]);
 		free_tab_char(tmp);
 		free_tab_char(tmp1);
 		free(buff);
 		i++;
 	}
-	return (234);
 }
 
 static t_color ini_color(int r, int v, int b)
@@ -58,20 +57,17 @@ static t_color ini_color(int r, int v, int b)
 	return (c);
 }
 
-t_color color_already_known(char *str)
+t_color color_already_known(char *str, t_data *d)
 {
-	t_color_known *ck;
 	int nb_color;
 	t_color color;
 
-	if (!(ck = malloc(sizeof(t_color_known) * 235)))
-		exit(0);
-	nb_color = structure_of_color(ck);
+	nb_color = 234;
 	while (nb_color >= 0)
 	{
-		if (ft_strcmp(ck[nb_color].name, str) == 0)
+		if (ft_strcmp(d->ck[nb_color].name, str) == 0)
 		{
-			color = ini_color(ck[nb_color].r, ck[nb_color].v, ck[nb_color].b);
+			color = ini_color(d->ck[nb_color].r, d->ck[nb_color].v, d->ck[nb_color].b);
 			return(color);
 		}
 		nb_color--;
