@@ -6,7 +6,7 @@
 #    By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 20:24:21 by vgauther          #+#    #+#              #
-#    Updated: 2019/11/05 16:42:34 by vgauther         ###   ########.fr        #
+#    Updated: 2019/11/06 12:16:58 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,10 @@ SRC_NAME = 	main.c \
 			color.c \
 			free_tab.c \
 			hex_to_decimal.c \
-			check.c
+			check.c \
+			print_image.c \
+			messages.c \
+			color_check.c 
 
 ifneq ("$(wildcard $(SDL_PATHO))","")
 	SDL_COMPILED = 1

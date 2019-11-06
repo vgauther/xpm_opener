@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 15:16:25 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/05 20:18:37 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/05 23:14:28 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,28 @@ int    test_base(const char c)
     return (nb);
 }
 
+int color_attribution(t_color *color, int nb, int i)
+{
+	if (i == 2)
+	{
+		color->r = nb;
+		nb = 0;
+	}
+	if (i == 4)
+	{
+		color->v = nb;
+		nb = 0;
+	}
+	if (i == 6)
+		color->b = nb;
+	return (nb);
+}
+
 t_color    hex_to_rgb(const char *str)
 {
     int    	nb;
     int    	current;
     int 	str_base;
-    int 	r;
-    int 	g;
-    int 	b;
     int 	i;
 	t_color color;
 
@@ -50,21 +64,7 @@ t_color    hex_to_rgb(const char *str)
         nb = nb * str_base + current;
         str++;
         current = test_base(*str);
-        if (i == 2)
-        {
-            r = nb;
-            nb = 0;
-        }
-        if (i == 4)
-        {
-            g = nb;
-            nb = 0;
-        }
-        if (i == 6)
-            b = nb;
+		nb = color_attribution(&color, nb, i);
     }
-	color.r = r;
-	color.v = g;
-	color.b = b;
     return (color);
 }
