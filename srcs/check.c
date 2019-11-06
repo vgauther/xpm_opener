@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:31:09 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/06 13:57:45 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/06 14:20:09 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,9 +216,9 @@ int recup_char_for_pix_or_nb_of_color(char *str, int t)
 		ret = ft_atoi(tmp2[2]);
 	else if (t == 0)
 		ret = ft_atoi(tmp2[3]);
-	else if (t == 2)
-			ret = ft_atoi(tmp2[0]);
 	else if (t == 3)
+			ret = ft_atoi(tmp2[0]);
+	else if (t == 2)
 			ret = ft_atoi(tmp2[1]);
 	free_tab_char(tmp);
 	free_tab_char(tmp2);
@@ -237,21 +237,14 @@ int is_this_a_good_pixel_line(char *str, char* color_ids,  int nb_char_for_pix, 
 	c = 0;
 	if(is_there_good_init_and_end_of_line(str))
 	{
-		printf("%c|%d|%d\n", str[width * nb_char_for_pix + 1], height, height_count);
-		if (height != height_count)
-		{
-			ft_putstr("here\n");
+		if (height != height_count + 1)
 			return (1);
-		}
 		else if (height == height_count && str[nb_char_for_pix * width + 1] != '"')
-		{
 			return (1);
-		}
 	}
 	tmp = ft_strsplit(str, '"');
-	if ((int)ft_strlen(tmp[0]) != width * nb_char_for_pix)
+	if ((int)ft_strlen(tmp[0]) != (width * nb_char_for_pix))
 		return(1);
-
 	while (tmp[0][i])
 	{
 		c = 0;
