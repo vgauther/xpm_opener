@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:02:27 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/06 15:12:53 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:56:14 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,25 +264,181 @@ void recup_all_built_in_color(t_data *data)
 	structure_of_color(data);
 }
 
-int main(int ac, char **av)
-{
-	t_data data;
 
-	if (ac != 2)
-	{
-		ft_error(2, NULL);
-		return (0);
-	}
-	data.file_name = ft_strdup(av[1]);
-	ft_messages(1, (void *)data.file_name);
-	recup_all_built_in_color(&data);
+
+void read_xpm(char *name, t_data *data)
+{
+	data->file_name = ft_strdup(name);
+	ft_messages(1, (void *)data->file_name);
+	recup_all_built_in_color(data);
 	ft_messages(12, NULL);
 	ft_messages(5, NULL);
- 	is_the_file_ok(&data);
+ 	is_the_file_ok(data);
 	ft_messages(6, NULL);
-	open_and_read_file(&data);
-	print_image(&data);
+	open_and_read_file(data);
+}
+
+/*
+** tu dois faire la fonction qui transforme ton data en surface sdl
+** il faut set h et w qui sont la hauteur et la largeur en pixels
+** set un clip rect avec x et y à 0  et w et h as longueur et largeur en pixels
+** locked à 0
+** pitch à 512 sans doute pour rgba
+*/
+
+Uint32	set_pixel_color(int a, int r, int g, int b)
+{
+	return ((a << 24) + (r << 16) + (g << 8) + (b << 0));
+}
+
+SDL_Surface *create_surface_from_data(t_data *data)
+{
+	SDL_Surface *s;
+	Uint32 *tmp;
+	int i;
+	int x;
+	int y;
+	int stop;
+
+	s = SDL_CreateRGBSurface(0, data->width_file, data->height_file, 32, 0, 0, 0, 0);
+	i = 0;
+	stop = data->height_file * data->width_file;
+	if (s == NULL)
+		ft_putstr("xxxx\n");
+	// s->clip_rect.x = 0;
+	// s->clip_rect.y = 0;
+	// s->clip_rect.h = data->height_file;
+	// s->clip_rect.w = data->width_file;
+	// s->h = data->height_file;
+	// s->w = data->width_file;
+	// if(!(tmp = malloc(sizeof(Uint32) * (stop))))
+	// 	exit(0);
+	tmp = (Uint32 *)s->pixels;
+	y = 0;
+
+
+	while (y != data->height_file)
+	{
+		x = 0;
+		while (x != data->width_file)
+		{
+			tmp[i] = set_pixel_color(0, data->pixel[y][x].r, data->pixel[y][x].v, data->pixel[y][x].b);
+			printf("%d\n", tmp[i]);
+			i++;
+			x++;
+		}
+		y++;
+	}
+	printf("%d\n", tmp[0]);
+
+	s->pixels = (void *)tmp;
+	return (s);
+}
+
+SDL_Surface *load_xpm(char *name)
+{
+	SDL_Surface *s;
+	t_data data;
+
+	read_xpm(name, &data);
+	ft_putstr("--ok--\n");
+	s = create_surface_from_data(&data);
+
+
+	return (s);
+}
+
+SDL_Rect init_sdl_rect(int x, int y, int i, int j)
+{
+	SDL_Rect r;
+
+	r.x = x;
+	r.y = y;
+	r.h = j;
+	r.w = i;
+	return (r);
+}
+
+void print_surface(SDL_Renderer *ren, SDL_Surface *image, SDL_Rect r)
+{
+	SDL_Texture	*mon_image;
+
+	mon_image = SDL_CreateTextureFromSurface(ren, image);
+	SDL_QueryTexture(mon_image, NULL, NULL, &r.w, &r.h);
+	SDL_SetRenderTarget(ren, mon_image);
+	SDL_RenderCopy(ren, mon_image, NULL, &r);
+	SDL_FreeSurface(image);
+	SDL_DestroyTexture(mon_image);
+}
+
+int main(int ac, char **av)
+{
+	SDL_Rect r;
+	SDL_Surface *s;
+	SDL_Renderer *ren;
+	SDL_Event	event;
+	SDL_Window *win;
+
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
+		return 0;
+	win = SDL_CreateWindow("WIN", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 128, 128, 0);
+	ren = SDL_CreateRenderer(win, -1, 1);
+	r = init_sdl_rect(0, 0, 0, 0);
+
+	s = load_xpm(av[1]);
+	print_surface(ren, s, r);
+	SDL_RenderPresent(ren);
+
+		while (SDL_WaitEvent(&event))
+		{
+			 if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+			 {
+				 SDL_DestroyRenderer(ren);
+				 SDL_DestroyWindow(win);
+				 SDL_Quit();
+			 }
+		}
+	return (0);
 	(void)ac;
 	(void)av;
-	return (0);
 }
+
+// int main(int ac, char **av)
+// {
+// 	SDL_Renderer *ren;
+// 	SDL_Window *win;
+// 	SDL_Rect r;
+// 	SDL_Texture	*mon_image;
+// 	SDL_Event	event;
+// 	SDL_Surface *image;
+//
+//
+// 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
+// 		return 0;
+// 	win = SDL_CreateWindow("WIN", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 128, 128, 0);
+// 	ren = SDL_CreateRenderer(win, -1, 1);
+// 	r = init_sdl_rect(0, 0, 0, 0);
+// 	if (!(image = SDL_LoadBMP(av[1])))
+// 		return (0);
+// 	ft_putstr(av[1]);
+// 	mon_image = SDL_CreateTextureFromSurface(ren, image);
+// 	printf("\n\nlocked: %d\n\n", image->pitch);
+//
+// 	SDL_QueryTexture(mon_image, NULL, NULL, &r.w, &r.h);
+// 	SDL_SetRenderTarget(ren, mon_image);
+// 	SDL_RenderCopy(ren, mon_image, NULL, &r);
+// 	// SDL_FreeSurface(image);
+// 	// SDL_DestroyTexture(mon_image);
+// 	SDL_RenderPresent(ren);
+// 	while (SDL_WaitEvent(&event))
+// 	{
+// 		 if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+// 		 {
+// 			 SDL_DestroyRenderer(ren);
+// 			 SDL_DestroyWindow(win);
+// 			 SDL_Quit();
+// 		 }
+// 	}
+// 	(void)ac;
+// 	return 0;
+// }
