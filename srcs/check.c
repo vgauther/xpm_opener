@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:31:09 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/11 18:02:08 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/11 18:48:34 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,7 +321,8 @@ int check_the_construction(char *name_file)
 	j = 0;
 	j2 = 0;
 	color_list_token = 0;
-	if (!(fd = open(name_file, O_RDONLY)))
+	fd = open(name_file, O_RDONLY);
+	if (fd < 0)
 		return (1);
 	while ((ret = get_next_line(fd, &buff)))
 	{

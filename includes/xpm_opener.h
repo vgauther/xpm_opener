@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/11 17:46:38 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/11 18:31:06 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ typedef struct 		s_data
 	t_pixel		**pixel;
 	t_color_known *ck;
 }					t_data;
+
+typedef struct		s_data_chk
+{
+	int 		width;
+	int 		height;
+	int 		height_count;
+}					t_data_chk;
 
 t_color    	hex_to_rgb(const char *str);
 void 		free_tab_char(char **tab);
