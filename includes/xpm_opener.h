@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/06 14:31:45 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/11 17:46:38 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/includes/libft.h"
 # include "SDL2/SDL.h"
+# include <stdio.h>
 
 typedef struct 		s_pixel
 {
@@ -53,6 +54,8 @@ typedef struct 		s_data
 
 t_color    	hex_to_rgb(const char *str);
 void 		free_tab_char(char **tab);
+void 		free_2_tab_char(char **tab, char **tab1);
+void 		free_3_tab_char(char **tab, char **tab1, char **tab2);
 void 		print_image(t_data *data);
 int 		is_good_extension(char *str);
 int 		is_the_file_ok(t_data *data);
@@ -61,7 +64,7 @@ void 		ft_error(int id, void *data);
 int 		ch_color_already_known(char *str);
 void 		structure_of_color(t_data *data);
 t_color 	color_already_known(char *str, t_data *d);
-
-
+SDL_Surface *load_xpm(char *name);
+void		read_xpm(char *name, t_data *data);
 
 #endif

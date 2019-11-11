@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:36:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/06 15:53:22 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/11 17:52:40 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void sdl_messages(int id)
 	if (id == -1)
 	{
 		ft_putstr("\n[✓] SDL Inited");
-
 	}
 	else if (id == -2)
 	{
@@ -56,7 +55,6 @@ void ft_messages(int id, void *data)
 		ft_putstr("\nAnalysis in progress for : ");
 		ft_putstr((char *)data);
 		ft_putstr("\n");
-
 	}
 	else if (id == 2)
 	{

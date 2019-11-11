@@ -6,7 +6,7 @@
 #    By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 20:24:21 by vgauther          #+#    #+#              #
-#    Updated: 2019/11/06 12:16:58 by vgauther         ###   ########.fr        #
+#    Updated: 2019/11/11 17:42:41 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,9 @@ SRC_NAME = 	main.c \
 			check.c \
 			print_image.c \
 			messages.c \
-			color_check.c 
+			color_check.c \
+			load_xpm.c \
+			read_xpm.c
 
 ifneq ("$(wildcard $(SDL_PATHO))","")
 	SDL_COMPILED = 1
@@ -74,9 +76,9 @@ $(NAME): $(OBJ)
 	@if [ $(SDL_COMPILED) = 0 ]; then \
 	make sdl; \
 	fi
-	@echo "$(YELLOW)[...] Wolf 3D compilation$(END)"
+	@echo "$(YELLOW)[...] xpm_opener compilation$(END)"
 	@$(CC) -o $(NAME) $(OBJ) -lm -L $(LFT_PATH) -lft $(SDL_FLG)
-	@echo "$(GREEN)[✓] Wolf 3D Done$(END)"
+	@echo "$(GREEN)[✓] xpm_opener Done$(END)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
@@ -85,7 +87,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 clean:
 	@make -C $(LFT_PATH) clean
 	@rm -rf $(OBJ_PATH)
-	@echo "$(RED)[-] Wolf 3D .o cleaned$(END)"
+	@echo "$(RED)[-] xpm_opener .o cleaned$(END)"
 
 sdl:
 	$(CURL_SDL)
@@ -107,14 +109,14 @@ fclean:
 	@make -C $(LFT_PATH) fclean
 	@rm -rf SDL2-2.0.9
 	@rm -f $(NAME)
-	@echo "$(RED)[-] Wolf 3D executable cleaned$(END)"
+	@echo "$(RED)[-] xpm_opener executable cleaned$(END)"
 
 
 fcleanr:
 	@make clean
 	@make -C $(LFT_PATH) fclean
 	@rm -f $(NAME)
-	@echo "$(RED)[-] Wolf 3D executable cleaned$(END)"
+	@echo "$(RED)[-] xpm_opener executable cleaned$(END)"
 
 fclean_all:
 	@make fclean
