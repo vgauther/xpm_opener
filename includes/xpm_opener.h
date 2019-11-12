@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/11 18:31:06 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:45:52 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ typedef struct		s_data_chk
 	int 		width;
 	int 		height;
 	int 		height_count;
+	int			color_list_token;
+	int			nb_of_color;
+	int 		nb_char_for_pix;
+	int 		color_count;
+	char 		*color_ids;
+	int			fd;
+	int 		i;
+
 }					t_data_chk;
 
 t_color    	hex_to_rgb(const char *str);
@@ -73,5 +81,6 @@ void 		structure_of_color(t_data *data);
 t_color 	color_already_known(char *str, t_data *d);
 SDL_Surface *load_xpm(char *name);
 void		read_xpm(char *name, t_data *data);
+int			is_this_color_built_in(char *str, int nb_char);
 
 #endif

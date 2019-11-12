@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:31:09 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/11 18:48:34 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:51:37 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ int check_the_static_char(char *str)
 	return(0);
 }
 
-//"128 128 1 1 ",
-
 int is_there_good_init_and_end_of_line(char *str)
 {
 	int len;
@@ -124,7 +122,8 @@ int check_settings(char *str)
 	i = 0;
 	if (is_there_good_init_and_end_of_line(str))
 		return(1);
-	tmp = ft_strsplit(str, '"');
+	if (!(tmp = ft_strsplit(str, '"')))
+		return (1);
 	if (is_only_numeric_char(tmp[0]))
 	{
 		free_tab_char(tmp);
@@ -171,28 +170,6 @@ char *malloc_color_ids(char *str)
 	free_tab_char(tmp);
 	free_tab_char(tmp2);
 	return(color_ids);
-}
-
-/*
-** cheching if chars in the color place of the are calling a built in color
-*/
-
-int is_this_color_built_in(char *str, int nb_char)
-{
-	int i;
-	char **tmp;
-	int tok;
-
-	i = 0;
-	while (i < nb_char + 1 && str[i])
-	{
-		str[i] = '1';
-		i++;
-	}
-	tmp = ft_strsplit(str, ' ');
-	tok = ch_color_already_known(tmp[1]);
-	free_tab_char(tmp);
-	return (tok);
 }
 
 int construction_of_color_line(char *str, int nb_char_for_pix)
@@ -252,7 +229,7 @@ int recup_char_for_pix_or_nb_of_color(char *str, int t)
 	return(ret);
 }
 
-int is_this_a_good_pixel_line(char *str, char* color_ids,  int nb_char_for_pix, int width, int height, int height_count)
+int is_this_a_good_pixel_line(char *str, t_data_chk *d)
 {
 	int i;
 	int x;
@@ -264,103 +241,144 @@ int is_this_a_good_pixel_line(char *str, char* color_ids,  int nb_char_for_pix, 
 	c = 0;
 	if(is_there_good_init_and_end_of_line(str))
 	{
-		if (height != height_count + 1)
+		if (d->height != d->height_count + 1)
 			return (1);
-		else if (height == height_count && str[nb_char_for_pix * width + 1] != '"')
+		else if (d->height == d->height_count && str[d->nb_char_for_pix * d->width + 1] != '"')
 			return (1);
 	}
 	tmp = ft_strsplit(str, '"');
-	if ((int)ft_strlen(tmp[0]) != (width * nb_char_for_pix))
+	if ((int)ft_strlen(tmp[0]) != (d->width * d->nb_char_for_pix))
 		return (free_tab_char_with_ret_1(tmp));
 	while (tmp[0][i])
 	{
 		c = 0;
-		while(color_ids[x] && tmp[0][i] && color_ids[x] == tmp[0][i] && c < nb_char_for_pix)
+		while(d->color_ids[x] && tmp[0][i] && d->color_ids[x] == tmp[0][i] && c < d->nb_char_for_pix)
 		{
 			c++;
 			x++;
 			i++;
 		}
-		if (c == nb_char_for_pix)
+		if (c == d->nb_char_for_pix)
 		{
 			x = 0;
-			i = i + nb_char_for_pix;
+			i = i + d->nb_char_for_pix;
 		}
-		else if (x != 0 && color_ids[x] == 0 && color_ids[x - 1] != tmp[0][i - 1])
+		else if (x != 0 && d->color_ids[x] == 0 && d->color_ids[x - 1] != tmp[0][i - 1])
 			return (free_tab_char_with_ret_1(tmp));
 		else if (c == 0)
-			x = x + nb_char_for_pix;
+			x = x + d->nb_char_for_pix;
 		else
-			x = x - c + nb_char_for_pix;
+			x = x - c + d->nb_char_for_pix;
 		i = i - c;
 	}
 	free_tab_char(tmp);
 	return (0);
 }
 
+int before_color(char *buff, t_data_chk *d)
+{
+	if (d->i == 0)
+	{
+		if (ft_strcmp(buff, "/* XPM */"))
+			return (1);
+	}
+	if (d->i == 1)
+	{
+		if (check_the_static_char(buff))
+ 			return (1);
+ 	}
+ 	if (d->i == 2)
+ 	{
+ 		if (ft_strcmp(buff, "/* columns rows colors chars-per-pixel */"))
+ 			return (1);
+ 	}
+ 	if (d->i == 3)
+ 	{
+ 		if (check_settings(buff))
+ 			return(1);
+ 		if (!(d->color_ids = malloc_color_ids(buff)))
+ 			return (1);
+ 		d->nb_char_for_pix = recup_char_for_pix_or_nb_of_color(buff, 0);
+ 		d->nb_of_color = recup_char_for_pix_or_nb_of_color(buff, 1);
+ 		d->height = recup_char_for_pix_or_nb_of_color(buff, 2);
+ 		d->width = recup_char_for_pix_or_nb_of_color(buff, 3);
+ 		d->color_list_token = 2;
+	}
+	return (0);
+}
+
+int set_var_check_zero(t_data_chk *d, int *j)
+{
+	d->color_list_token = 0;
+	d->color_count = 0;
+	d->height_count = 0;
+	*j = 0;
+	d->i = 0;
+	return (0);
+}
+
+int check_the_construction2(char *buff, t_data_chk *d, int *j2, int *j, int i)
+{
+	if (buff[0] == '/')
+	{
+		if (d->color_count != d->nb_of_color)
+		{
+			ft_error(7, NULL);
+			return (1);
+		}
+		if(ft_strcmp(buff, "/* pixels */"))
+		{
+			ft_error(6, buff);
+			return(1);
+		}
+		d->color_ids[*j2] = 0;
+		d->color_list_token = 3;
+	}
+	else
+	{
+		if(is_there_good_init_and_end_of_line(buff))
+		{
+			ft_error(8, &i);
+			return (1);
+		}
+		if (construction_of_color_line(buff, d->nb_char_for_pix))
+		{
+			ft_error(10, &i);
+			return (1);
+		}
+		*j = 0;
+		while (*j != d->nb_char_for_pix)
+		{
+			d->color_ids[*j2] = buff[*j + 1];
+			*j = *j + 1;
+			*j2 = *j2 + 1;
+		}
+		d->color_count++;
+	}
+	return (0);
+
+}
+
 int check_the_construction(char *name_file)
 {
-	int fd;
 	char *buff;
 	int ret;
-	int i;
-	int color_list_token;
-	int color_count;
-	char *color_ids;
-	int nb_char_for_pix;
-	int nb_of_color;
 	int j;
 	int j2;
-	int width;
-	int height;
-	int height_count;
+	t_data_chk d;
 
-	height_count = 0;
-	color_count = 0;
-	i = 0;
-	j = 0;
-	j2 = 0;
-	color_list_token = 0;
-	fd = open(name_file, O_RDONLY);
-	if (fd < 0)
+	j2 = set_var_check_zero(&d, &j);
+	if ((d.fd = open(name_file, O_RDONLY)) < 0)
 		return (1);
-	while ((ret = get_next_line(fd, &buff)))
+	while ((ret = get_next_line(d.fd, &buff)))
 	{
-		if (i < 4)
-		{
-			if (i == 0)
-			{
-				if (ft_strcmp(buff, "/* XPM */"))
-					return (1);
-			}
-			if (i == 1)
-			{
-				if (check_the_static_char(buff))
-					return (1);
-			}
-			if (i == 2)
-			{
-				if (ft_strcmp(buff, "/* columns rows colors chars-per-pixel */"))
-					return (1);
-			}
-			if (i == 3)
-			{
-				if (check_settings(buff))
-					return(1);
-				if (!(color_ids = malloc_color_ids(buff)))
-					return (1);
-				nb_char_for_pix = recup_char_for_pix_or_nb_of_color(buff, 0);
-				nb_of_color = recup_char_for_pix_or_nb_of_color(buff, 1);
-				height = recup_char_for_pix_or_nb_of_color(buff, 2);
-				width = recup_char_for_pix_or_nb_of_color(buff, 3);
-				color_list_token = 2;
-			}
-		}
-		if (color_list_token == 3)
+		if (d.i < 4 && before_color(buff, &d))
+				return (1);
+		if (d.color_list_token == 3)
 		{
 			if (buff[0] == '"')
 			{
-				if(is_this_a_good_pixel_line(buff, color_ids, nb_char_for_pix, width, height, height_count))
+				if(is_this_a_good_pixel_line(buff, &d))
 				{
 					ft_putstr("-55-\n");
 					return (1);
@@ -371,54 +389,16 @@ int check_the_construction(char *name_file)
 				if(ft_strcmp(buff, "};"))
 					return (1);
 			}
-			height_count++;
+			d.height_count++;
 		}
-		else if (color_list_token == 1)
-		{
-			if (buff[0] == '/')
-			{
-				if (color_count != nb_of_color)
-				{
-					ft_error(7, NULL);
-					return (1);
-				}
-				if(ft_strcmp(buff, "/* pixels */"))
-				{
-					ft_error(6, buff);
-					return(1);
-				}
-				color_ids[j2] = 0;
-				color_list_token = 3;
-			}
-			else
-			{
-				if(is_there_good_init_and_end_of_line(buff))
-				{
-					ft_error(8, &i);
-					return (1);
-				}
-				if (construction_of_color_line(buff, nb_char_for_pix))
-				{
-					ft_error(10, &i);
-					return (1);
-				}
-				j = 0;
-				while (j != nb_char_for_pix)
-				{
-					color_ids[j2] = buff[j + 1];
-					j++;
-					j2++;
-				}
-				color_count++;
-			}
-		}
-		if (color_list_token == 2)
-			color_list_token = 1;
-		i++;
+		else if (d.color_list_token == 1 && check_the_construction2(buff, &d, &j2, &j, d.i))
+			return(1);
+		d.color_list_token = d.color_list_token == 2 ? 1 : d.color_list_token;
+		d.i++;
 		free(buff);
 	}
-	close(fd);
-	free(color_ids);
+	close(d.fd);
+	free(d.color_ids);
 	return(0);
 }
 

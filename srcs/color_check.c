@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:41:12 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/06 14:35:26 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:20:13 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,26 @@ int ch_color_already_known(char *str)
 	}
 	free(ck);
 	return(token);
+}
+
+/*
+** cheching if chars in the color place of the are calling a built in color
+*/
+
+int is_this_color_built_in(char *str, int nb_char)
+{
+	int i;
+	char **tmp;
+	int tok;
+
+	i = 0;
+	while (i < nb_char + 1 && str[i])
+	{
+		str[i] = '1';
+		i++;
+	}
+	tmp = ft_strsplit(str, ' ');
+	tok = ch_color_already_known(tmp[1]);
+	free_tab_char(tmp);
+	return (tok);
 }
