@@ -6,26 +6,11 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 22:56:17 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/11 18:35:28 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:32:13 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
-
-// void wait_ev(SDL_Renderer *ren, SDL_Window *win)
-// {
-// 	SDL_Event	event;
-//
-// 	while (SDL_WaitEvent(&event))
-// 	{
-// 		 if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
-// 		 {
-// 			 SDL_DestroyRenderer(ren);
-// 			 SDL_DestroyWindow(win);
-// 			 SDL_Quit();
-// 		 }
-// 	}
-// }
 
 void print_image(t_data *data)
 {
@@ -64,7 +49,6 @@ void print_image(t_data *data)
 	ft_messages(-5, NULL);
 	SDL_RenderPresent(ren);
 	ft_messages(-6, NULL);
-	//wait_ev(ren, window);
 	while (SDL_WaitEvent(&event))
 	{
 		 if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)

@@ -1,45 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/04 17:17:06 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 13:56:04 by vgauther         ###   ########.fr       */
+/*   Created: 2019/11/12 13:58:12 by vgauther          #+#    #+#             */
+/*   Updated: 2019/11/12 13:58:40 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
-void free_tab_char(char **tab)
+int is_only_numeric_char(char *str)
 {
 	int i;
 
 	i = 0;
-	while (tab[i])
+	while (str[i])
 	{
-		free(tab[i]);
+		if ((str[i] < '0' || str[i] > '9') && str[i] != ' ')
+			return (1);
 		i++;
 	}
-	free(tab);
-}
-
-void free_2_tab_char(char **tab, char **tab1)
-{
-	free_tab_char(tab);
-	free_tab_char(tab1);
-}
-
-void free_3_tab_char(char **tab, char **tab1, char **tab2)
-{
-	free_tab_char(tab);
-	free_tab_char(tab1);
-	free_tab_char(tab2);
-}
-
-int free_tab_char_with_ret_1(char **tab)
-{
-	free_tab_char(tab);
-	return (1);
+	return (0);
 }

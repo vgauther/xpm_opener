@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 13:45:52 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:19:51 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ typedef struct		s_data_chk
 	int 		color_count;
 	char 		*color_ids;
 	int			fd;
+	int 		j;
+	int 		j2;
 	int 		i;
-
 }					t_data_chk;
 
 t_color    	hex_to_rgb(const char *str);
@@ -82,5 +83,14 @@ t_color 	color_already_known(char *str, t_data *d);
 SDL_Surface *load_xpm(char *name);
 void		read_xpm(char *name, t_data *data);
 int			is_this_color_built_in(char *str, int nb_char);
+int 		is_the_file_ok(t_data *data);
+int 		check_the_construction(char *name_file);
+int 		free_tab_char_with_ret_1(char **tab);
+int 		is_only_numeric_char(char *str);
+int 		is_this_a_good_pixel_line(char *str, t_data_chk *d);
+int 		construction_of_color_line(char *str, int nb_char_for_pix);
+int 		before_color(char *buff, t_data_chk *d);
+int 		is_there_good_init_and_end_of_line(char *str);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:39:43 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/11 17:50:22 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:30:34 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ void recup_color_id(t_data *data, char *str, int i_color)
 	}
 	data->colors[i_color].color_id[i] = 0;
 }
+
+/*
+** comme le char `c` est present dans les string qui definissent les pixels
+** on doit proteger le strsplit en enlevant tout les c autres que celui
+** qui separe l'id de la couleur
+*/
 
 char *create_save_to_protect_c(t_data *data, char *str)
 {
