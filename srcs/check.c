@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:31:09 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 14:41:08 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:25:42 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,64 +22,6 @@ int is_good_extension(char *str)
 	else if (str[len - 2] != 'x' || str[len - 3] != '.')
 		return (0);
 	return (1);
-}
-
-/*
-** checking if 'statich char* ' is at the beginning of this line
-*/
-
-int check_begin_the_static_char(char *str)
-{
-	int ret;
-
-	ret = 0;
-	if (str[0] != 's' || str[1] != 't' || str[2] != 'a')
-		ret = 1;
-	if (str[3] != 't' || str[4] != 'i' || str[5] != 'c')
-		ret = 1;
-	if (str[6] != ' ' || str[11] != ' ' || str[12] != '*')
-		ret = 1;
-	if (str[7] != 'c' || str[8] != 'h' || str[9] != 'a' || str[10] != 'r')
-		ret = 1;
-	if (ret)
-		ft_error(22, NULL);
-	return (ret);
-}
-
-int check_the_static_char(char *str)
-{
-	int i;
-	int end_nb;
-	char *tmp;
-
-	i = 13;
-	if (ft_strlen(str) != 51)
-		return(1);
-	if (check_begin_the_static_char(str))
-		return(1);
-	end_nb = i + ft_strlen("a0053c01fccc4275c61107f5ef06391d");
-	while (i != end_nb)
-	{
-		if (str[i] < 33 || str[i] > 126)
-			return(1);
-		i++;
-	}
-	tmp = ft_strdup("[] = {");
-	end_nb = 0;
-	while (str[i] && tmp[end_nb])
-	{
-		if (str[i] != tmp[end_nb])
-		{
-			free(tmp);
-			return (1);
-		}
-		i++;
-		end_nb++;
-	}
-	free(tmp);
-	if (str[i])
-		return(1);
-	return(0);
 }
 
 int is_there_good_init_and_end_of_line(char *str)
@@ -122,70 +64,6 @@ int check_settings(char *str)
 	return (0);
 }
 
-char *malloc_color_ids(char *str)
-{
-	char **tmp;
-	char **tmp2;
-	char *color_ids;
-	int mal;
-
-	if (!(tmp = ft_strsplit(str, '"')))
-		return (NULL);
-	if (!(tmp2 = ft_strsplit(tmp[0], ' ')))
-	{
-		free_tab_char(tmp);
-		return (NULL);
-	}
-	mal = ft_atoi(tmp2[2]) * ft_atoi(tmp2[3]) + 1;
-	if (!(color_ids = malloc(sizeof(char) * mal)))
-	{
-		free_tab_char(tmp);
-		free_tab_char(tmp2);
-		return (NULL);
-	}
-	free_tab_char(tmp);
-	free_tab_char(tmp2);
-	return(color_ids);
-}
-
-int construction_of_color_line(char *str, int nb_char_for_pix)
-{
-	char **tmp;
-	int i;
-
-	i = 0;
-	if ((int)ft_strlen(str) < nb_char_for_pix)
-		return (1);
-	if (!(tmp = ft_strsplit(str, '"')))
-		return (1);
-	if (tmp[0][nb_char_for_pix + 1] != 'c')
-		return (free_tab_char_with_ret_1(tmp));
-	if (tmp[0][nb_char_for_pix + 1] == 'c' && (tmp[0][nb_char_for_pix] != ' ' || tmp[0][nb_char_for_pix + 2] != ' '))
-		return (free_tab_char_with_ret_1(tmp));
-	if (tmp[0][nb_char_for_pix + 3] != '#')
-	{
-		if ((is_this_color_built_in(tmp[0], nb_char_for_pix)))
-			return (free_tab_char_with_ret_1(tmp));
-	}
-	else
-	{
-		while (i < 6 && tmp[0][nb_char_for_pix + 4 + i])
-		{
-			if (tmp[0][nb_char_for_pix + 4 + i] >= '0' && tmp[0][nb_char_for_pix + 4 + i] <= '9')
-				i = i + 0;
-			else if (tmp[0][nb_char_for_pix + 4 + i] >= 'A' && tmp[0][nb_char_for_pix + 4 + i] <= 'F')
-				i = i + 0;
-			else
-				return (free_tab_char_with_ret_1(tmp));
-			i++;
-		}
-		if (i != 6)
-			return (free_tab_char_with_ret_1(tmp));
-	}
-	free_tab_char(tmp);
-	return (0);
-}
-
 int recup_char_for_pix_or_nb_of_color(char *str, int t)
 {
 	char **tmp;
@@ -212,10 +90,10 @@ int recup_char_for_pix_or_nb_of_color(char *str, int t)
 
 int is_this_a_good_pixel_line(char *str, t_data_chk *d)
 {
-	int i;
-	int x;
-	int c;
-	char **tmp;
+	int 	i;
+	int 	x;
+	int 	c;
+	char 	**tmp;
 
 	i = 0;
 	x = 0;
