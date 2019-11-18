@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 14:00:32 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 15:36:17 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:26:06 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ int check_the_construction(char *name_file)
 			if (buff[0] == '"')
 			{
 				if(is_this_a_good_pixel_line(buff, &d))
+				{
+					ft_putstr("-55-\n");
 					return (1);
+				}
 			}
 			else
 			{

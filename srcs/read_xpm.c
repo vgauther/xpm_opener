@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:39:43 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 14:56:23 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:30:34 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,13 @@
 ** recupere les donnes de la 3 lignes du fichier XPM
 */
 
-int recup_xpm_setting(t_data *data, char *str)
+void recup_xpm_setting(t_data *data, char *str)
 {
 	char **tmp;
 	char **tmp2;
 
-	if (!(tmp = ft_strsplit(str, '"')))
-		return (1);
-	if (!(tmp2 = ft_strsplit(tmp[0], ' ')))
-		return(free_tab_char_with_ret_1(tmp));
+	tmp = ft_strsplit(str, '"');
+	tmp2 = ft_strsplit(tmp[0], ' ');
 	data->height_file = ft_atoi(tmp2[1]);
 	data->width_file = ft_atoi(tmp2[0]);
 	data->nb_of_color = ft_atoi(tmp2[2]);
@@ -32,7 +30,6 @@ int recup_xpm_setting(t_data *data, char *str)
 	free_tab_char(tmp);
 	free_tab_char(tmp2);
 	ft_messages(4, (void *)data);
-	return (0);
 }
 
 /*
@@ -97,20 +94,14 @@ void recup_colors(t_data *data, char *str, int i_color)
 	char *color_char;
 	int i;
 
-	if (!(tmp = ft_strsplit(str, '"')))
-		return ;
+	tmp = ft_strsplit(str, '"');
 	i = 0;
 	if (!(color_char = create_save_to_protect_c(data, tmp[0])))
 	{
 		free_tab_char(tmp);
 		exit (0);
 	}
-	if (!(tmp2 = ft_strsplit(tmp[0], 'c')))
-	{
-		free(color_char);
-		free_tab_char(tmp);
-		exit (0);
-	}
+	tmp2 = ft_strsplit(tmp[0], 'c');
 	i = 0;
 	while (i != (data->nb_char_pix + 1))
 	{
@@ -125,15 +116,8 @@ void recup_colors(t_data *data, char *str, int i_color)
 			tmp2[1][i - data->nb_char_pix + 1] = 'c';
 		i++;
 	}
-	if (!(tmp3 = ft_strsplit(tmp2[1], ' ')))
-	{
-		free(color_char);
-		free_tab_char(tmp);
-		free_tab_char(tmp);
-		return ;
-	}
-	data->colors[i_color] = tmp3[0][0] == '#' ? hex_to_rgb(tmp3[0]) :
-	color_already_known(tmp3[0], data);
+	tmp3 = ft_strsplit(tmp2[1], ' ');
+	data->colors[i_color] = tmp3[0][0] == '#' ? hex_to_rgb(tmp3[0]) : color_already_known(tmp3[0], data);
 	recup_color_id(data, tmp2[0], i_color);
 	free_3_tab_char(tmp, tmp2, tmp3);
 	free(color_char);

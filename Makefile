@@ -6,7 +6,7 @@
 #    By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 20:24:21 by vgauther          #+#    #+#              #
-#    Updated: 2019/11/12 15:26:29 by vgauther         ###   ########.fr        #
+#    Updated: 2019/11/12 14:01:32 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,7 @@ SRC_NAME = 	main.c \
 			read_xpm.c \
 			is_the_file_ok.c \
 			tools.c \
-			check_construction.c \
-			check_the_static_char.c \
-			construction_of_color_line.c
+			check_construction.c
 
 ifneq ("$(wildcard $(SDL_PATHO))","")
 	SDL_COMPILED = 1

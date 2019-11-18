@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 15:32:00 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:19:51 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,6 @@ int 		is_this_a_good_pixel_line(char *str, t_data_chk *d);
 int 		construction_of_color_line(char *str, int nb_char_for_pix);
 int 		before_color(char *buff, t_data_chk *d);
 int 		is_there_good_init_and_end_of_line(char *str);
-int 		check_the_static_char(char *str);
-int 		construction_of_color_line(char *str, int nb_char_for_pix);
-char 		*malloc_color_ids(char *str);
-int 		is_a_hexa_char(char c);
+
 
 #endif
