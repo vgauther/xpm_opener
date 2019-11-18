@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:32:07 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/11 18:34:26 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/18 16:13:20 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ SDL_Surface *create_surface_from_data(t_data *data)
 	int i;
 
 	i = 0;
-	s = SDL_CreateRGBSurface(0, data->width_file,
-		data->height_file, 32, 0, 0, 0, 0);
+	s = SDL_CreateRGBSurface(0, data->width_file, data->height_file, 32, 0, 0, 0, 0);
 	tmp = (Uint32 *)s->pixels;
 	y = 0;
 	while (y != data->height_file)

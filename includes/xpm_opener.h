@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 14:19:51 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/18 19:11:46 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,18 @@ int 		is_this_a_good_pixel_line(char *str, t_data_chk *d);
 int 		construction_of_color_line(char *str, int nb_char_for_pix);
 int 		before_color(char *buff, t_data_chk *d);
 int 		is_there_good_init_and_end_of_line(char *str);
+int 		check_settings(char *str);
+int 		check_the_static_char(char *str);
+int			free_ret_1(char *str);
+char 		*create_save_to_protect_c(t_data *data, char *str);
+
+
+/* recup.c */
+void 		recup_color_id(t_data *data, char *str, int i_color);
+void 		recup_xpm_setting(t_data *data, char *str);
+int 		recup_colors(t_data *data, char *str, int i_color);
+
+
 
 
 #endif
