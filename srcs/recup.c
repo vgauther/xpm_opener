@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:42:54 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/18 19:12:32 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 01:36:48 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int recup_colors(t_data *data, char *str, int i_color)
 	int i;
 
 	if (!(tmp = ft_strsplit(str, '"')))
-		return (1);
+		return (xpm_malloc_error("recup_colors"));
 	i = 0;
 	if (!(color_char = create_save_to_protect_c(data, tmp[0])))
 	{
@@ -33,7 +33,7 @@ int recup_colors(t_data *data, char *str, int i_color)
 		exit (0);
 	}
 	if (!(tmp2 = ft_strsplit(tmp[0], 'c')))
-		return (1);
+		return (xpm_malloc_error("recup_colors"));
 	i = 0;
 	while (i != (data->nb_char_pix + 1))
 	{
@@ -49,7 +49,7 @@ int recup_colors(t_data *data, char *str, int i_color)
 		i++;
 	}
 	if (!(tmp3 = ft_strsplit(tmp2[1], ' ')))
-		return (1);
+		return (xpm_malloc_error("recup_colors"));
 	data->colors[i_color] = tmp3[0][0] == '#' ? hex_to_rgb(tmp3[0]) : color_already_known(tmp3[0], data);
 	recup_color_id(data, tmp2[0], i_color);
 	free_3_tab_char(tmp, tmp2, tmp3);

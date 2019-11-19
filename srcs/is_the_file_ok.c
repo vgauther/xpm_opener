@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:52:51 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 13:53:10 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 01:35:02 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ int is_the_file_a_correct_file(char *name_file)
 	char tmp[2];
 	int ret;
 
-	fd = open(name_file, O_RDONLY);
-	if (fd < 0)
+	if ((fd = open(name_file, O_RDONLY)) < 0)
+	{
+		xpm_fd_error("is_the_file_a_correct_file");
 		return (0);
+	}
 	ft_messages(2, NULL);
 	ret = read(fd, tmp, 2);
 	tmp[ret] = 0;
@@ -51,9 +53,11 @@ int is_only_good_char(char *name_file)
 	int ret;
 	int i;
 
-	fd = open(name_file, O_RDONLY);
-	if (fd < 0)
+	if ((fd = open(name_file, O_RDONLY)) < 0)
+	{
+		xpm_fd_error("is_only_good_char");
 		return (0);
+	}
 	while ((ret = get_next_line(fd, &buff)))
 	{
 		i = 0;

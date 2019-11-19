@@ -6,7 +6,7 @@
 #    By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 20:24:21 by vgauther          #+#    #+#              #
-#    Updated: 2019/11/18 17:47:06 by vgauther         ###   ########.fr        #
+#    Updated: 2019/11/19 01:18:55 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,8 @@ SRC_NAME = 	main.c \
 			check_construction.c \
 			check_basic.c \
 			free_str.c \
-			recup.c
+			recup.c \
+			xpm_messages.c
 
 ifneq ("$(wildcard $(SDL_PATHO))","")
 	SDL_COMPILED = 1

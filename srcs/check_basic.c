@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:31:09 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/18 16:11:06 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 01:32:40 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int check_the_static_char(char *str)
 			return(1);
 		i++;
 	}
-	tmp = ft_strdup("[] = {");
+	if (!(tmp = ft_strdup("[] = {")))
+		return (xpm_malloc_error("check_the_static_char"));
 	end_nb = 0;
 	while (str[i] && tmp[end_nb])
 	{

@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:41:12 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/06 14:31:24 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 01:26:50 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_color_known ini_color_kn(char *r, char *v, char *b)
 	return (ck);
 }
 
-void structure_of_color(t_data *data)
+int structure_of_color(t_data *data)
 {
 	int fd;
 	int ret;
@@ -33,11 +33,13 @@ void structure_of_color(t_data *data)
 
 	i = 0;
 	if ((fd = open("data_color_built_in", O_RDONLY)) < 0)
-		exit(0);
+		return (xpm_fd_error("structure_of_color"));
 	while ((ret = get_next_line(fd, &buff)))
 	{
-		tmp = ft_strsplit(buff, ' ');
-		tmp1 = ft_strsplit(tmp[1], ',');
+		if (!(tmp = ft_strsplit(buff, ' ')))
+			return (xpm_malloc_error("structure_of_color"));
+		if (!(tmp1 = ft_strsplit(tmp[1], ',')))
+			return (xpm_malloc_error("structure_of_color"));
 		data->ck[i] = ini_color_kn(tmp1[0], tmp1[1], tmp1[2]);
 		data->ck[i].name = ft_strdup(tmp[0]);
 		free_tab_char(tmp);
@@ -45,6 +47,7 @@ void structure_of_color(t_data *data)
 		free(buff);
 		i++;
 	}
+	return (0);
 }
 
 static t_color ini_color(int r, int v, int b)

@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/18 19:11:46 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 01:34:14 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int 		is_the_file_ok(t_data *data);
 void 		ft_messages(int id, void *data);
 void 		ft_error(int id, void *data);
 int 		ch_color_already_known(char *str);
-void 		structure_of_color(t_data *data);
+int 		structure_of_color(t_data *data);
 t_color 	color_already_known(char *str, t_data *d);
 SDL_Surface *load_xpm(char *name);
 void		read_xpm(char *name, t_data *data);
@@ -102,7 +102,8 @@ void 		recup_color_id(t_data *data, char *str, int i_color);
 void 		recup_xpm_setting(t_data *data, char *str);
 int 		recup_colors(t_data *data, char *str, int i_color);
 
-
-
+/* xpm_messages.c */
+int 		xpm_fd_error(char *str);
+int 		xpm_malloc_error(char *str);
 
 #endif
