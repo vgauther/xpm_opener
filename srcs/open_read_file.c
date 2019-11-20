@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:39:43 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 22:31:49 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:39:49 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void	init_var_for_open_read_file(int *i, int *j, int *tok, int *i_c)
 	*i_c = 0;
 }
 
-void        open_and_read_file(t_data *data)
+void		open_and_read_file(t_data *data)
 {
-	t_read_var          rv;
-	int                 i;
-	int                 j;
-	int                 token_before_img;
-	int                 i_color;
+	t_read_var	rv;
+	int			i;
+	int			j;
+	int			token_before_img;
+	int			i_color;
 
 	init_var_for_open_read_file(&i, &j, &token_before_img, &i_color);
 	if ((rv.fd = open(data->file_name, O_RDONLY)) < 0)
