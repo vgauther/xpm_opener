@@ -18,7 +18,7 @@
 ** qui separe l'id de la couleur
 */
 
-void xpm_setting(t_data *data, char *buff)
+void	xpm_setting(t_data *data, char *buff)
 {
 	int i;
 
@@ -36,7 +36,7 @@ void xpm_setting(t_data *data, char *buff)
 	}
 }
 
-int recup_pixel_color(t_data *data, int j, char *buff)
+int		recup_pixel_color(t_data *data, int j, char *buff)
 {
 	int an_other;
 	int x;
@@ -51,47 +51,10 @@ int recup_pixel_color(t_data *data, int j, char *buff)
 		an_other = an_other + data->nb_char_pix;
 		x++;
 	}
-	return(j + 1);
+	return (j + 1);
 }
 
-void open_and_read_file(t_data *data)
-{
-	int fd;
-	int ret;
-	int i;
-	int j;
-	int token_before_img;
-	char *buff;
-	int i_color;
-
-	i = 0;
-	token_before_img = 0;
-	j = 0;
-	i_color = 0;
-	if ((fd = open(data->file_name, O_RDONLY)) < 0)
-		exit(0);
-	while ((ret = get_next_line(fd, &buff)))
-	{
-		if (i > 2)
-		{
-			if (i == 3)
-				xpm_setting(data, buff);
-			if (i > 3 && token_before_img == 1 && buff[0] == '"')
-				j = recup_pixel_color(data, j, buff);
-			if (i > 3 && buff[0] == '/' && token_before_img == 0)
-				token_before_img = 1;
-			if (i > 3 && token_before_img == 0)
-			{
-				recup_colors(data, buff, i_color);
-				i_color++;
-			}
-		}
-		free(buff);
-		i++;
-	}
-}
-
-int recup_all_built_in_color(t_data *data)
+int		recup_all_built_in_color(t_data *data)
 {
 	if (!(data->ck = malloc(sizeof(t_color_known) * (235))))
 		return (1);
@@ -99,14 +62,14 @@ int recup_all_built_in_color(t_data *data)
 	return (0);
 }
 
-void read_xpm(char *name, t_data *data)
+void	read_xpm(char *name, t_data *data)
 {
 	data->file_name = ft_strdup(name);
 	ft_messages(1, (void *)data->file_name);
 	recup_all_built_in_color(data);
 	ft_messages(12, NULL);
 	ft_messages(5, NULL);
- 	is_the_file_ok(data);
+	is_the_file_ok(data);
 	ft_messages(6, NULL);
 	open_and_read_file(data);
 }

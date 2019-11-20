@@ -73,6 +73,7 @@ SRC_NAME = 	main.c \
 			construction_of_color_line.c \
 			read_xpm_next.c \
 			color_check2.c \
+			open_read_file.c \
 
 
 ifneq ("$(wildcard $(SDL_PATHO))","")

@@ -6,13 +6,13 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:31:09 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 22:36:47 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:12:39 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
-int is_good_extension(char *str)
+int	is_good_extension(char *str)
 {
 	int len;
 

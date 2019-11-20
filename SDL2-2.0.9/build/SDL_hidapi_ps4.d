@@ -1,8 +1,8 @@
 build/SDL_hidapi_ps4.lo: \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/SDL_hidapi_ps4.c \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../../SDL_internal.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../../dynapi/SDL_dynapi.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../../dynapi/SDL_dynapi_overrides.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/SDL_hidapi_ps4.c \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../../SDL_internal.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../../dynapi/SDL_dynapi.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../../dynapi/SDL_dynapi_overrides.h \
   include/SDL_config.h include/SDL_platform.h include/begin_code.h \
   include/close_code.h include/SDL_hints.h include/SDL_stdinc.h \
   include/SDL_log.h include/SDL_events.h include/SDL_error.h \
@@ -12,7 +12,7 @@ build/SDL_hidapi_ps4.lo: \
   include/SDL_scancode.h include/SDL_mouse.h include/SDL_joystick.h \
   include/SDL_gamecontroller.h include/SDL_quit.h include/SDL_gesture.h \
   include/SDL_touch.h include/SDL_timer.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../SDL_sysjoystick.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../SDL_joystick_c.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/SDL_hidapijoystick_c.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../../hidapi/hidapi/hidapi.h
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../SDL_sysjoystick.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../SDL_joystick_c.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/SDL_hidapijoystick_c.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/joystick/hidapi/../../hidapi/hidapi/hidapi.h

@@ -1,9 +1,9 @@
 build/SDL_poll.lo: \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/core/unix/SDL_poll.c \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/core/unix/../../SDL_internal.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/core/unix/../../dynapi/SDL_dynapi.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/core/unix/../../dynapi/SDL_dynapi_overrides.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/core/unix/SDL_poll.c \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/core/unix/../../SDL_internal.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/core/unix/../../dynapi/SDL_dynapi.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/core/unix/../../dynapi/SDL_dynapi_overrides.h \
   include/SDL_config.h include/SDL_platform.h include/begin_code.h \
   include/close_code.h include/SDL_assert.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/core/unix/SDL_poll.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/core/unix/SDL_poll.h \
   include/SDL_stdinc.h

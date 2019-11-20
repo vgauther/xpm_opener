@@ -1,5 +1,5 @@
 build/SDL_test_imagePrimitives.lo: \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/test/SDL_test_imagePrimitives.c \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/test/SDL_test_imagePrimitives.c \
   include/SDL_config.h include/SDL_platform.h include/begin_code.h \
   include/close_code.h include/SDL_test.h include/SDL.h \
   include/SDL_main.h include/SDL_stdinc.h include/SDL_assert.h \

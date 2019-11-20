@@ -38,7 +38,14 @@ typedef struct 		s_color
 	int 			r;
 	int 			v;
 	int 			b;
-}					t_color;
+}									t_color;
+
+typedef struct 		s_read_var
+{
+	int 			fd;
+	int 			ret;
+	char 			*buff;
+}									t_read_var;
 
 typedef struct 		s_data
 {
@@ -97,6 +104,9 @@ int			free_ret_1(char *str);
 char 		*create_save_to_protect_c(t_data *data, char *str);
 int 		check_the_construction2(char *buff, t_data_chk *d, int *j2, int *j);
 int 		construction_of_color_line(char *str, int nb_char_for_pix);
+void		open_and_read_file(t_data *data);
+void		xpm_setting(t_data *data, char *buff);
+int			recup_pixel_color(t_data *data, int j, char *buff);
 
 /* read_xpm_next.c */
 int 		find_color_for_pixel(t_data *data, char *c, char rvb, int x);

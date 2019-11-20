@@ -1,8 +1,8 @@
 build/SDL_dynapi.lo: \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/dynapi/SDL_dynapi.c \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/dynapi/SDL_dynapi.c \
   include/SDL_config.h include/SDL_platform.h include/begin_code.h \
   include/close_code.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/dynapi/SDL_dynapi.h \
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/dynapi/SDL_dynapi.h \
   include/SDL.h include/SDL_main.h include/SDL_stdinc.h \
   include/SDL_assert.h include/SDL_atomic.h include/SDL_audio.h \
   include/SDL_error.h include/SDL_endian.h include/SDL_mutex.h \
@@ -18,4 +18,4 @@ build/SDL_dynapi.lo: \
   include/SDL_sensor.h include/SDL_shape.h include/SDL_system.h \
   include/SDL_timer.h include/SDL_version.h include/SDL_syswm.h \
   include/SDL_vulkan.h \
-  /Users/vgauther/Desktop/xpm_opener/SDL2-2.0.9/src/dynapi/SDL_dynapi_procs.h
+  /Users/vgauther/vgauther/xpm_opener/SDL2-2.0.9/src/dynapi/SDL_dynapi_procs.h
