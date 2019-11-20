@@ -6,13 +6,13 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:52:51 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 11:49:11 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:35:52 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
-int is_the_file_a_xpm(char *name_file)
+int		is_the_file_a_xpm(char *name_file)
 {
 	if (!(is_good_extension(name_file)))
 	{
@@ -22,11 +22,11 @@ int is_the_file_a_xpm(char *name_file)
 	return (check_the_construction(name_file));
 }
 
-int is_the_file_a_correct_file(char *name_file)
+int		is_the_file_a_correct_file(char *name_file)
 {
-	int fd;
-	char tmp[2];
-	int ret;
+	int		fd;
+	char	tmp[2];
+	int		ret;
 
 	if ((fd = open(name_file, O_RDONLY)) < 0)
 	{
@@ -46,38 +46,36 @@ int is_the_file_a_correct_file(char *name_file)
 	return (1);
 }
 
-int is_only_good_char(char *name_file)
+int		is_only_good_char(char *name_file)
 {
-	int fd;
-	char *buff;
-	int ret;
-	int i;
+	t_read_var	rv;
+	int			i;
 
-	if ((fd = open(name_file, O_RDONLY)) < 0)
+	if ((rv.fd = open(name_file, O_RDONLY)) < 0)
 	{
 		xpm_fd_error("is_only_good_char");
 		return (0);
 	}
-	while ((ret = get_next_line(fd, &buff)))
+	while ((rv.ret = get_next_line(rv.fd, &rv.buff)))
 	{
 		i = 0;
-		while (buff[i])
+		while (rv.buff[i])
 		{
-			if (buff[i] < 0 || buff[i] > 127)
+			if (rv.buff[i] < 0 || rv.buff[i] > 127)
 			{
-				free(buff);
+				free(rv.buff);
 				xpm_error(3, NULL);
-				return(0);
+				return (0);
 			}
 			i++;
 		}
-		free(buff);
+		free(rv.buff);
 	}
-	close(fd);
-	return(1);
+	close(rv.fd);
+	return (1);
 }
 
-int is_the_file_ok(t_data *data)
+int		is_the_file_ok(t_data *data)
 {
 	if (!(is_the_file_a_correct_file(data->file_name)))
 	{
@@ -93,5 +91,5 @@ int is_the_file_ok(t_data *data)
 		exit(0);
 	}
 	ft_messages(7, NULL);
-	return(0);
+	return (0);
 }

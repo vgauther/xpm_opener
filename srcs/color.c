@@ -6,13 +6,13 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:41:12 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 12:04:53 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:02:50 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
-static t_color_known ini_color_kn(char *r, char *v, char *b)
+static t_color_known	ini_color_kn(char *r, char *v, char *b)
 {
 	t_color_known ck;
 
@@ -22,21 +22,19 @@ static t_color_known ini_color_kn(char *r, char *v, char *b)
 	return (ck);
 }
 
-int structure_of_color(t_data *data)
+int						structure_of_color(t_data *data)
 {
-	int fd;
-	int ret;
-	char *buff;
-	char **tmp;
-	char **tmp1;
-	int i;
+	t_read_var	rv;
+	char		**tmp;
+	char		**tmp1;
+	int			i;
 
 	i = 0;
-	if ((fd = open("data_color_built_in", O_RDONLY)) < 0)
+	if ((rv.fd = open("data_color_built_in", O_RDONLY)) < 0)
 		return (xpm_fd_error("structure_of_color"));
-	while ((ret = get_next_line(fd, &buff)))
+	while ((rv.ret = get_next_line(rv.fd, &rv.buff)))
 	{
-		if (!(tmp = ft_strsplit(buff, ' ')))
+		if (!(tmp = ft_strsplit(rv.buff, ' ')))
 			return (xpm_malloc_error("structure_of_color"));
 		if (!(tmp1 = ft_strsplit(tmp[1], ',')))
 			return (xpm_malloc_error("structure_of_color"));
@@ -44,13 +42,13 @@ int structure_of_color(t_data *data)
 		data->ck[i].name = ft_strdup(tmp[0]);
 		xpm_free_tab_char(tmp);
 		xpm_free_tab_char(tmp1);
-		free(buff);
+		free(rv.buff);
 		i++;
 	}
 	return (0);
 }
 
-static t_color ini_color(int r, int v, int b)
+static t_color			ini_color(int r, int v, int b)
 {
 	t_color c;
 
@@ -60,21 +58,19 @@ static t_color ini_color(int r, int v, int b)
 	return (c);
 }
 
-t_color color_already_known(char *str, t_data *d)
+t_color					color_already_known(char *str, t_data *d)
 {
-	int nb_color;
-	t_color color;
+	int			nb_color;
 
 	nb_color = 234;
 	while (nb_color >= 0)
 	{
 		if (ft_strcmp(d->ck[nb_color].name, str) == 0)
 		{
-			color = ini_color(d->ck[nb_color].r, d->ck[nb_color].v, d->ck[nb_color].b);
-			return(color);
+			return (ini_color(d->ck[nb_color].r, d->ck[nb_color].v,
+				d->ck[nb_color].b));
 		}
 		nb_color--;
 	}
-	color = ini_color(0, 0, 0);
-	return(color);
+	return (ini_color(0, 0, 0));
 }

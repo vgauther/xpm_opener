@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 22:33:31 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:28:49 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ typedef struct 		s_color
 	int 			r;
 	int 			v;
 	int 			b;
-}									t_color;
+}					t_color;
 
 typedef struct 		s_read_var
 {
 	int 			fd;
 	int 			ret;
 	char 			*buff;
-}									t_read_var;
+}					t_read_var;
 
 typedef struct 		s_data
 {
@@ -107,6 +107,9 @@ int 		construction_of_color_line(char *str, int nb_char_for_pix);
 void		open_and_read_file(t_data *data);
 void		xpm_setting(t_data *data, char *buff);
 int			recup_pixel_color(t_data *data, int j, char *buff);
+int			recup_char_for_pix_or_nb_of_color(char *str, int t);
+char		*malloc_color_ids(char *str);
+
 
 /* read_xpm_next.c */
 int 		find_color_for_pixel(t_data *data, char *c, char rvb, int x);

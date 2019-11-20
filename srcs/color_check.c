@@ -6,13 +6,13 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:41:12 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 12:04:54 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:06:43 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
-static t_color_known ch_ini_color_kn(char *r, char *v, char *b)
+static t_color_known	ch_ini_color_kn(char *r, char *v, char *b)
 {
 	t_color_known ck;
 
@@ -22,37 +22,35 @@ static t_color_known ch_ini_color_kn(char *r, char *v, char *b)
 	return (ck);
 }
 
-static int ch_structure_of_color(t_color_known *ck)
+static int				ch_structure_of_color(t_color_known *ck)
 {
-	int fd;
-	int ret;
-	char *buff;
-	char **tmp;
-	char **tmp1;
-	int i;
+	t_read_var	rv;
+	char		**tmp;
+	char		**tmp1;
+	int			i;
 
 	i = 0;
-	if ((fd = open("data_color_built_in", O_RDONLY)) < 0)
+	if ((rv.fd = open("data_color_built_in", O_RDONLY)) < 0)
 		exit(0);
-	while ((ret = get_next_line(fd, &buff)))
+	while ((rv.ret = get_next_line(rv.fd, &rv.buff)))
 	{
-		tmp = ft_strsplit(buff, ' ');
+		tmp = ft_strsplit(rv.buff, ' ');
 		tmp1 = ft_strsplit(tmp[1], ',');
 		ck[i] = ch_ini_color_kn(tmp1[0], tmp1[1], tmp1[2]);
 		ck[i].name = ft_strdup(tmp[0]);
 		xpm_free_tab_char(tmp);
 		xpm_free_tab_char(tmp1);
-		free(buff);
+		free(rv.buff);
 		i++;
 	}
 	return (234);
 }
 
-int ch_color_already_known(char *str)
+int						ch_color_already_known(char *str)
 {
-	t_color_known *ck;
-	int nb_color;
-	int token;
+	t_color_known	*ck;
+	int				nb_color;
+	int				token;
 
 	token = 1;
 	if (!(ck = malloc(sizeof(t_color_known) * 235)))
@@ -66,18 +64,18 @@ int ch_color_already_known(char *str)
 		nb_color--;
 	}
 	free(ck);
-	return(token);
+	return (token);
 }
 
 /*
 ** cheching if chars in the color place of the are calling a built in color
 */
 
-int is_this_color_built_in(char *str, int nb_char)
+int						is_this_color_built_in(char *str, int nb_char)
 {
-	int i;
-	char **tmp;
-	int tok;
+	int		i;
+	char	**tmp;
+	int		tok;
 
 	i = 0;
 	while (i < nb_char + 1 && str[i])
