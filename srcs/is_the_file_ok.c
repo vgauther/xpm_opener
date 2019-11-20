@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:52:51 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 01:35:02 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 11:49:11 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int is_the_file_a_xpm(char *name_file)
 {
 	if (!(is_good_extension(name_file)))
 	{
-		ft_error(4, NULL);
+		xpm_error(4, NULL);
 		return (1);
 	}
 	return (check_the_construction(name_file));
@@ -38,7 +38,7 @@ int is_the_file_a_correct_file(char *name_file)
 	tmp[ret] = 0;
 	if (tmp[0] == 0)
 	{
-		ft_error(5, NULL);
+		xpm_error(5, NULL);
 		return (0);
 	}
 	ft_messages(3, NULL);
@@ -66,7 +66,7 @@ int is_only_good_char(char *name_file)
 			if (buff[i] < 0 || buff[i] > 127)
 			{
 				free(buff);
-				ft_error(3, NULL);
+				xpm_error(3, NULL);
 				return(0);
 			}
 			i++;

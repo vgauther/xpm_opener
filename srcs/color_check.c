@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:41:12 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 13:20:13 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:04:54 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static int ch_structure_of_color(t_color_known *ck)
 		tmp1 = ft_strsplit(tmp[1], ',');
 		ck[i] = ch_ini_color_kn(tmp1[0], tmp1[1], tmp1[2]);
 		ck[i].name = ft_strdup(tmp[0]);
-		free_tab_char(tmp);
-		free_tab_char(tmp1);
+		xpm_free_tab_char(tmp);
+		xpm_free_tab_char(tmp1);
 		free(buff);
 		i++;
 	}
@@ -87,6 +87,6 @@ int is_this_color_built_in(char *str, int nb_char)
 	}
 	tmp = ft_strsplit(str, ' ');
 	tok = ch_color_already_known(tmp[1]);
-	free_tab_char(tmp);
+	xpm_free_tab_char(tmp);
 	return (tok);
 }

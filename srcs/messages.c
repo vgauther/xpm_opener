@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:36:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/11 17:55:18 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 22:58:16 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void ft_messages(int id, void *data)
 	ft_putstr("\n");
 }
 
-void ft_error(int id, void *data)
+void xpm_error(int id, void *data)
 {
 	ft_putstr("\n\x1b[31m");
 	if (id == 1)
@@ -91,23 +91,10 @@ void ft_error(int id, void *data)
 		ft_putstr("error : extension is not valid");
 	else if (id == 5)
 		ft_putstr("error : file is null or empty");
-	else if (id == 6)
-	{
-		ft_putstr("error : we wanted `/* pixels */` and we have`");
-		ft_putstr((char *)data);
-		ft_putstr("`");
-	}
 	else if (id == 7)
 		ft_putstr("error : we don't count the same number of colors as writted in the file");
 	else if (id == 8)
 		ft_putstr("error : must have quote and comma on the side of a line");
-	else if (id == 10)
-	{
-		ft_putstr("error : the line ");
-		ft_putstr(ft_itoa((int)data));
-		ft_putstr("is not well formated");
-
-	}
 	else if (id == 22)
 		ft_putstr("error : 'static char *' wasn't found on line 2");
 	else

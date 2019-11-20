@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:42:54 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 01:36:48 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:06:36 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int recup_colors(t_data *data, char *str, int i_color)
 	i = 0;
 	if (!(color_char = create_save_to_protect_c(data, tmp[0])))
 	{
-		free_tab_char(tmp);
+		xpm_free_tab_char(tmp);
 		exit (0);
 	}
 	if (!(tmp2 = ft_strsplit(tmp[0], 'c')))
@@ -52,7 +52,7 @@ int recup_colors(t_data *data, char *str, int i_color)
 		return (xpm_malloc_error("recup_colors"));
 	data->colors[i_color] = tmp3[0][0] == '#' ? hex_to_rgb(tmp3[0]) : color_already_known(tmp3[0], data);
 	recup_color_id(data, tmp2[0], i_color);
-	free_3_tab_char(tmp, tmp2, tmp3);
+	xpm_free_3_tab_char(tmp, tmp2, tmp3);
 	free(color_char);
 	return (0);
 }
@@ -72,8 +72,8 @@ void recup_xpm_setting(t_data *data, char *str)
 	data->width_file = ft_atoi(tmp2[0]);
 	data->nb_of_color = ft_atoi(tmp2[2]);
 	data->nb_char_pix = ft_atoi(tmp2[3]);
-	free_tab_char(tmp);
-	free_tab_char(tmp2);
+	xpm_free_tab_char(tmp);
+	xpm_free_tab_char(tmp2);
 	ft_messages(4, (void *)data);
 }
 

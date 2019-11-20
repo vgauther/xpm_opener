@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:41:12 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 01:26:50 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:04:53 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int structure_of_color(t_data *data)
 			return (xpm_malloc_error("structure_of_color"));
 		data->ck[i] = ini_color_kn(tmp1[0], tmp1[1], tmp1[2]);
 		data->ck[i].name = ft_strdup(tmp[0]);
-		free_tab_char(tmp);
-		free_tab_char(tmp1);
+		xpm_free_tab_char(tmp);
+		xpm_free_tab_char(tmp1);
 		free(buff);
 		i++;
 	}

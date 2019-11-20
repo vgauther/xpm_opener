@@ -6,11 +6,33 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 14:00:32 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 01:33:09 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 22:56:53 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
+
+static int local_message(int i, char *str)
+{
+	ft_putstr("\n\x1b[31m");
+	if (i == 0)
+		ft_putstr("error : we don't count the same number of colors as writted in the file");
+	else if (i == 1)
+	{
+		ft_putstr("error : we wanted `/* pixels */` and we have`");
+		ft_putstr(str);
+		ft_putstr("`");
+	}
+	else if (i == 2)
+		ft_putstr("error : must have quote and comma on the side of a line");
+	else if (i == 3)
+	{
+		ft_putstr("error : the line ");
+		ft_putstr(str);
+		ft_putstr("is not well formated");
+	}
+	return (1);
+}
 
 int set_var_check_zero(t_data_chk *d, int *j)
 {
@@ -27,30 +49,18 @@ int check_the_construction2(char *buff, t_data_chk *d, int *j2, int *j)
 	if (buff[0] == '/')
 	{
 		if (d->color_count != d->nb_of_color)
-		{
-			ft_error(7, NULL);
-			return (1);
-		}
+			return (local_message(0, NULL));
 		if(ft_strcmp(buff, "/* pixels */"))
-		{
-			ft_error(6, buff);
-			return(1);
-		}
+			return(local_message(1, buff));
 		d->color_ids[*j2] = 0;
 		d->color_list_token = 3;
 	}
 	else
 	{
 		if(is_there_good_init_and_end_of_line(buff))
-		{
-			ft_error(8, &d->i);
-			return (1);
-		}
+			return (local_message(2, NULL));
 		if (construction_of_color_line(buff, d->nb_char_for_pix))
-		{
-			ft_error(10, &d->i);
-			return (1);
-		}
+			return (local_message(10, ft_itoa(d->i)));
 		*j = 0;
 		while (*j != d->nb_char_for_pix)
 		{

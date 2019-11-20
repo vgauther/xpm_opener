@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:01:45 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 15:19:31 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:10:24 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int check_begin_the_static_char(char *str)
 	if (str[7] != 'c' || str[8] != 'h' || str[9] != 'a' || str[10] != 'r')
 		ret = 1;
 	if (ret)
-		ft_error(22, NULL);
+		xpm_error(22, NULL);
 	return (ret);
 }
 
@@ -53,7 +53,7 @@ int check_the_static_char(char *str)
 		i++;
 	}
 	if (!(tmp = ft_strdup("[] = {")))
-		return (0);
+		return (1);
 	end_nb = 0;
 	while (str[i] && tmp[end_nb])
 	{

@@ -6,13 +6,13 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:17:06 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/12 13:56:04 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:05:45 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
-void free_tab_char(char **tab)
+void xpm_free_tab_char(char **tab)
 {
 	int i;
 
@@ -25,21 +25,21 @@ void free_tab_char(char **tab)
 	free(tab);
 }
 
-void free_2_tab_char(char **tab, char **tab1)
+void xpm_free_2_tab_char(char **tab, char **tab1)
 {
-	free_tab_char(tab);
-	free_tab_char(tab1);
+	xpm_free_tab_char(tab);
+	xpm_free_tab_char(tab1);
 }
 
-void free_3_tab_char(char **tab, char **tab1, char **tab2)
+void xpm_free_3_tab_char(char **tab, char **tab1, char **tab2)
 {
-	free_tab_char(tab);
-	free_tab_char(tab1);
-	free_tab_char(tab2);
+	xpm_free_tab_char(tab);
+	xpm_free_tab_char(tab1);
+	xpm_free_tab_char(tab2);
 }
 
-int free_tab_char_with_ret_1(char **tab)
+int xpm_free_tab_char_with_ret_1(char **tab)
 {
-	free_tab_char(tab);
+	xpm_free_tab_char(tab);
 	return (1);
 }
