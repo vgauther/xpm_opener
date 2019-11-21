@@ -6,13 +6,13 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:32:07 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/20 17:37:35 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:39:49 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
-static void		local_messages(int i)
+static void local_messages(int i)
 {
 	if (i == 0)
 		ft_putstr("\n[✓] XPM FILE READ\n");
@@ -20,22 +20,21 @@ static void		local_messages(int i)
 		ft_putstr("[✓] SDL_Surface Created\n");
 }
 
-Uint32			xpm_set_pixel_color(int a, int r, int g, int b)
+Uint32	xpm_set_pixel_color(int a, int r, int g, int b)
 {
 	return ((a << 24) + (r << 16) + (g << 8) + (b << 0));
 }
 
-SDL_Surface		*create_surface_from_data(t_data *data)
+SDL_Surface *create_surface_from_data(t_data *data)
 {
-	SDL_Surface	*s;
-	Uint32		*tmp;
-	int			x;
-	int			y;
-	int			i;
+	SDL_Surface *s;
+	Uint32 *tmp;
+	int x;
+	int y;
+	int i;
 
 	i = 0;
-	s = SDL_CreateRGBSurface(0, data->width_file,
-		data->height_file, 32, 0, 0, 0, 0);
+	s = SDL_CreateRGBSurface(0, data->width_file, data->height_file, 32, 0, 0, 0, 0);
 	tmp = (Uint32 *)s->pixels;
 	y = 0;
 	while (y != data->height_file)
@@ -54,10 +53,10 @@ SDL_Surface		*create_surface_from_data(t_data *data)
 	return (s);
 }
 
-SDL_Surface		*load_xpm(char *name)
+SDL_Surface *load_xpm(char *name)
 {
-	SDL_Surface	*s;
-	t_data		data;
+	SDL_Surface *s;
+	t_data data;
 
 	read_xpm(name, &data);
 	local_messages(0);

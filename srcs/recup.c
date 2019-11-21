@@ -6,24 +6,23 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:42:54 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/20 17:46:52 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:06:36 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
 /*
-** cette fonction permet de creer une structure contenan une des
-** couleurs en debut de fichier
+** cette fonction permet de creer une structure contenan une des couleurs en debut de fichier
 */
 
-int		recup_colors(t_data *data, char *str, int i_color)
+int recup_colors(t_data *data, char *str, int i_color)
 {
-	char	**tmp;
-	char	**tmp2;
-	char	**tmp3;
-	char	*color_char;
-	int		i;
+	char **tmp;
+	char **tmp2;
+	char **tmp3;
+	char *color_char;
+	int i;
 
 	if (!(tmp = ft_strsplit(str, '"')))
 		return (xpm_malloc_error("recup_colors"));
@@ -31,7 +30,7 @@ int		recup_colors(t_data *data, char *str, int i_color)
 	if (!(color_char = create_save_to_protect_c(data, tmp[0])))
 	{
 		xpm_free_tab_char(tmp);
-		exit(0);
+		exit (0);
 	}
 	if (!(tmp2 = ft_strsplit(tmp[0], 'c')))
 		return (xpm_malloc_error("recup_colors"));
@@ -51,8 +50,7 @@ int		recup_colors(t_data *data, char *str, int i_color)
 	}
 	if (!(tmp3 = ft_strsplit(tmp2[1], ' ')))
 		return (xpm_malloc_error("recup_colors"));
-	data->colors[i_color] = tmp3[0][0] == '#' ? hex_to_rgb(tmp3[0]) :
-	color_already_known(tmp3[0], data);
+	data->colors[i_color] = tmp3[0][0] == '#' ? hex_to_rgb(tmp3[0]) : color_already_known(tmp3[0], data);
 	recup_color_id(data, tmp2[0], i_color);
 	xpm_free_3_tab_char(tmp, tmp2, tmp3);
 	free(color_char);
@@ -63,15 +61,13 @@ int		recup_colors(t_data *data, char *str, int i_color)
 ** recupere les donnes de la 3 lignes du fichier XPM
 */
 
-void	recup_xpm_setting(t_data *data, char *str)
+void recup_xpm_setting(t_data *data, char *str)
 {
-	char	**tmp;
-	char	**tmp2;
+	char **tmp;
+	char **tmp2;
 
-	if (!(tmp = ft_strsplit(str, '"')))
-		exit(0);
-	if (!(tmp2 = ft_strsplit(tmp[0], ' ')))
-		exit(0);
+	tmp = ft_strsplit(str, '"');
+	tmp2 = ft_strsplit(tmp[0], ' ');
 	data->height_file = ft_atoi(tmp2[1]);
 	data->width_file = ft_atoi(tmp2[0]);
 	data->nb_of_color = ft_atoi(tmp2[2]);
@@ -82,19 +78,17 @@ void	recup_xpm_setting(t_data *data, char *str)
 }
 
 /*
-** alloue une str pour le color_id afin de reperer cette couleur
-** parmis les pixels
+** alloue une str pour le color_id afin de reperer cette couleur parmis les pixels
 */
 
-void	recup_color_id(t_data *data, char *str, int i_color)
+void recup_color_id(t_data *data, char *str, int i_color)
 {
 	int i;
 
-	i = data->nb_char_pix + 1;
-	if (!(data->colors[i_color].color_id = malloc(sizeof(char) * i)))
-		exit(0);
 	i = 0;
-	while (i != data->nb_char_pix)
+	if (!(data->colors[i_color].color_id = malloc(sizeof(char) * (data->nb_char_pix + 1))))
+		exit(0);
+	while(i != data->nb_char_pix)
 	{
 		data->colors[i_color].color_id[i] = str[i];
 		i++;
