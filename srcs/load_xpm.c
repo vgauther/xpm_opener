@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:32:07 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 13:52:28 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 22:06:37 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,9 @@ SDL_Surface		*load_xpm(char *name)
 	local_messages(0);
 	s = create_surface_from_data(&data);
 	local_messages(1);
+	free_color_built_in(&data);
+	free(data.file_name);
+	free_pixels(&data);
+	free_colors(&data);
 	return (s);
 }

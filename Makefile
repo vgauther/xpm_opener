@@ -6,7 +6,7 @@
 #    By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 20:24:21 by vgauther          #+#    #+#              #
-#    Updated: 2019/11/21 18:51:02 by vgauther         ###   ########.fr        #
+#    Updated: 2019/11/21 22:06:53 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,8 @@ SRC_NAME = 	main.c \
 			open_read_file.c \
 			before_color.c \
 			my_put.c \
-			recup_xpm_settings.c
+			recup_xpm_settings.c \
+			free_for_the_end.c
 
 
 ifneq ("$(wildcard $(SDL_PATHO))","")

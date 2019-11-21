@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 19:10:51 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 22:07:47 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,13 @@ int					recup_colors(t_data *data, char *str, int i_color);
 
 int					xpm_fd_error(char *str);
 int					xpm_malloc_error(char *str);
+
+/*
+** free_for_the_end.c
+*/
+
+void			free_colors(t_data *data);
+void			free_color_built_in(t_data *data);
+void			free_pixels(t_data *data);
 
 #endif

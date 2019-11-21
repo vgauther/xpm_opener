@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:42:54 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 18:50:03 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 21:54:44 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_color		attribution_color(char **tmp2, t_data *data)
 		exit(0);
 	c = tmp3[0][0] == '#' ? hex_to_rgb(tmp3[0]) :
 	color_already_known(tmp3[0], data);
+	xpm_free_tab_char(tmp3);
 	return (c);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:36:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 18:53:13 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 22:05:40 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	ft_the_messages2(int id)
 
 void	ft_the_messages(int id, void *data)
 {
-	t_data *d;
+	t_data	*d;
+	char	*s;
 
 	if (id == 1)
 		ft_putstr3("\nAnalysis in progress for : ", (char *)data, "\n");
@@ -56,9 +57,11 @@ void	ft_the_messages(int id, void *data)
 	else if (id == 4)
 	{
 		d = (t_data *)data;
-		ft_putstr3("Data Image :\n", "  - Height : ", ft_itoa(d->height_file));
+		s = ft_itoa(d->height_file);
+		ft_putstr3("Data Image :\n", "  - Height : ", s);
 		put3_i_2("\n  - Width : ", d->width_file, "\n  - Number of color : ");
 		put3_i_13(d->nb_of_color, "\n  - Char per pixels : ", d->nb_char_pix);
+		free(s);
 	}
 	else
 		ft_the_messages2(id);
