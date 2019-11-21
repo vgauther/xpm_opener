@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:39:43 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 13:55:45 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 21:00:18 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ static void		init_var_for_open_read_file(int *i, int *j, int *tok, int *i_c)
 	*j = 0;
 	*tok = 0;
 	*i_c = 0;
+}
+
+static int		i_plus_free(int i, char *str0)
+{
+	free(str0);
+	return (i + 1);
 }
 
 void			open_and_read_file(t_data *data)
@@ -44,7 +50,7 @@ void			open_and_read_file(t_data *data)
 			recup_colors(data, rv.buff, i_color);
 			i_color++;
 		}
-		free(rv.buff);
-		i++;
+		i = i_plus_free(i, rv.buff);
 	}
+	close(rv.fd);
 }

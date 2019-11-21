@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:41:12 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/20 17:02:50 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 20:58:59 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int						structure_of_color(t_data *data)
 		free(rv.buff);
 		i++;
 	}
+	close(rv.fd);
 	return (0);
 }
 
