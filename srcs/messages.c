@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:36:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 16:51:03 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:53:13 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void	xpm_error(int id, void *data)
 	else if (id == 5)
 		ft_putstr("error : file is null or empty");
 	else if (id == 7)
-		ft_putstr("error : we don't count the same number of colors as writted in the file");
+		ft_putstr("error : we don't count the same number of colors as writted\
+					in the file");
 	else if (id == 8)
 		ft_putstr("error : must have quote and comma on the side of a line");
 	else if (id == 22)

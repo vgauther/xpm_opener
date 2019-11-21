@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:42:54 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 17:57:04 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 18:50:03 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,25 @@ t_color		attribution_color(char **tmp2, t_data *data)
 	return (c);
 }
 
+void		calc_i(t_data *data, int *i, char **tmp2, char *color_char)
+{
+	*i = 0;
+	while (*i != (data->nb_char_pix + 1))
+	{
+		if (color_char[*i] == '0')
+			tmp2[0][*i] = 'c';
+		*i = *i + 1;
+	}
+	*i = *i + 1;
+}
+
+int			recup_colors_free(char **tmp, char **tmp2, char *color_char)
+{
+	xpm_free_2_tab_char(tmp, tmp2);
+	free(color_char);
+	return (0);
+}
+
 int			recup_colors(t_data *data, char *str, int i_color)
 {
 	char	**tmp;
@@ -45,14 +64,7 @@ int			recup_colors(t_data *data, char *str, int i_color)
 	}
 	if (!(tmp2 = ft_strsplit(tmp[0], 'c')))
 		return (xpm_malloc_error("recup_colors"));
-	i = 0;
-	while (i != (data->nb_char_pix + 1))
-	{
-		if (color_char[i] == '0')
-			tmp2[0][i] = 'c';
-		i++;
-	}
-	i++;
+	calc_i(data, &i, tmp2, color_char);
 	while (color_char[i])
 	{
 		if (color_char[i] == '0')
@@ -61,29 +73,7 @@ int			recup_colors(t_data *data, char *str, int i_color)
 	}
 	data->colors[i_color] = attribution_color(tmp2, data);
 	recup_color_id(data, tmp2[0], i_color);
-	xpm_free_2_tab_char(tmp, tmp2);
-	free(color_char);
-	return (0);
-}
-
-/*
-** recupere les donnes de la 3 lignes du fichier XPM
-*/
-
-void		recup_xpm_setting(t_data *data, char *str)
-{
-	char **tmp;
-	char **tmp2;
-
-	tmp = ft_strsplit(str, '"');
-	tmp2 = ft_strsplit(tmp[0], ' ');
-	data->height_file = ft_atoi(tmp2[1]);
-	data->width_file = ft_atoi(tmp2[0]);
-	data->nb_of_color = ft_atoi(tmp2[2]);
-	data->nb_char_pix = ft_atoi(tmp2[3]);
-	xpm_free_tab_char(tmp);
-	xpm_free_tab_char(tmp2);
-	ft_messages(4, (void *)data);
+	return (recup_colors_free(tmp, tmp2, color_char));
 }
 
 /*
@@ -96,7 +86,8 @@ void		recup_color_id(t_data *data, char *str, int i_color)
 	int i;
 
 	i = 0;
-	if (!(data->colors[i_color].color_id = malloc(sizeof(char) * (data->nb_char_pix + 1))))
+	if (!(data->colors[i_color].color_id = malloc(sizeof(char) *
+		(data->nb_char_pix + 1))))
 		exit(0);
 	while (i != data->nb_char_pix)
 	{
