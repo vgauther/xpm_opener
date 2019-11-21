@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:36:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 15:14:00 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:51:03 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,20 @@ void	sdl_messages(int id)
 	ft_putstr("\n");
 }
 
+void	ft_the_messages2(int id)
+{
+	if (id == 5)
+		ft_putstr("\n - Starting the work on the XPM ..\n");
+	else if (id == 6)
+		ft_putstr("\nRESULT : The file looks to be an XPM file\n");
+	else if (id == 7)
+		ft_putstr("[✓] The file is well built and formated");
+	else if (id == 8)
+		ft_putstr("[✓] The file is made with only authorized chars");
+	else if (id == 12)
+		ft_putstr("[✓] Recovery of built in colors done");
+}
+
 void	ft_the_messages(int id, void *data)
 {
 	t_data *d;
@@ -46,16 +60,8 @@ void	ft_the_messages(int id, void *data)
 		put3_i_2("\n  - Width : ", d->width_file, "\n  - Number of color : ");
 		put3_i_13(d->nb_of_color, "\n  - Char per pixels : ", d->nb_char_pix);
 	}
-	else if (id == 5)
-		ft_putstr("\n - Starting the work on the XPM ..\n");
-	else if (id == 6)
-		ft_putstr("\nRESULT : The file looks to be an XPM file\n");
-	else if (id == 7)
-		ft_putstr("[✓] The file is well built and formated");
-	else if (id == 8)
-		ft_putstr("[✓] The file is made with only authorized chars");
-	else if (id == 12)
-		ft_putstr("[✓] Recovery of built in colors done");
+	else
+		ft_the_messages2(id);
 	ft_putstr("\n");
 }
 
