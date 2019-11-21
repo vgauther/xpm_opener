@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/20 17:28:49 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 15:14:51 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ void		xpm_setting(t_data *data, char *buff);
 int			recup_pixel_color(t_data *data, int j, char *buff);
 int			recup_char_for_pix_or_nb_of_color(char *str, int t);
 char		*malloc_color_ids(char *str);
-
+void		ft_putstr2(char *str, char *str2);
+void		put3_i_2(char *str, int str2, char *str3);
+void		put3_i_13(int str, char *str2, int str3);
+void		ft_putstr3(char *str, char *str2, char *str3);
 
 /* read_xpm_next.c */
 int 		find_color_for_pixel(t_data *data, char *c, char rvb, int x);

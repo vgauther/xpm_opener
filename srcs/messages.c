@@ -6,13 +6,13 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:36:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 22:58:16 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 15:14:00 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
-void sdl_messages(int id)
+void	sdl_messages(int id)
 {
 	if (id == -1)
 		ft_putstr("\n[✓] SDL Inited");
@@ -29,21 +29,12 @@ void sdl_messages(int id)
 	ft_putstr("\n");
 }
 
-void ft_messages(int id, void *data)
+void	ft_the_messages(int id, void *data)
 {
 	t_data *d;
 
-	if (id < 0)
-	{
-		sdl_messages(id);
-		return ;
-	}
 	if (id == 1)
-	{
-		ft_putstr("\nAnalysis in progress for : ");
-		ft_putstr((char *)data);
-		ft_putstr("\n");
-	}
+		ft_putstr3("\nAnalysis in progress for : ", (char *)data, "\n");
 	else if (id == 2)
 		ft_putstr("[✓] File found");
 	else if (id == 3)
@@ -51,20 +42,14 @@ void ft_messages(int id, void *data)
 	else if (id == 4)
 	{
 		d = (t_data *)data;
-		ft_putstr("Data Image :\n");
-		ft_putstr("  - Height : ");
-		ft_putnbr(d->height_file);
-		ft_putstr("\n  - Width : ");
-		ft_putnbr(d->width_file);
-		ft_putstr("\n  - Number of color : ");
-		ft_putnbr(d->nb_of_color);
-		ft_putstr("\n  - Char per pixels : ");
-		ft_putnbr(d->nb_char_pix);
+		ft_putstr3("Data Image :\n", "  - Height : ", ft_itoa(d->height_file));
+		put3_i_2("\n  - Width : ", d->width_file, "\n  - Number of color : ");
+		put3_i_13(d->nb_of_color, "\n  - Char per pixels : ", d->nb_char_pix);
 	}
 	else if (id == 5)
 		ft_putstr("\n - Starting the work on the XPM ..\n");
 	else if (id == 6)
-		ft_putstr("\nRESULT : The file looks to be an XPM file 0 error detected\n");
+		ft_putstr("\nRESULT : The file looks to be an XPM file\n");
 	else if (id == 7)
 		ft_putstr("[✓] The file is well built and formated");
 	else if (id == 8)
@@ -74,7 +59,18 @@ void ft_messages(int id, void *data)
 	ft_putstr("\n");
 }
 
-void xpm_error(int id, void *data)
+void	ft_messages(int id, void *data)
+{
+	if (id < 0)
+	{
+		sdl_messages(id);
+		return ;
+	}
+	else
+		ft_the_messages(id, data);
+}
+
+void	xpm_error(int id, void *data)
 {
 	ft_putstr("\n\x1b[31m");
 	if (id == 1)

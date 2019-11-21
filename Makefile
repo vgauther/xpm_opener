@@ -6,7 +6,7 @@
 #    By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/18 20:24:21 by vgauther          #+#    #+#              #
-#    Updated: 2019/11/20 17:26:28 by vgauther         ###   ########.fr        #
+#    Updated: 2019/11/21 15:15:10 by vgauther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,8 @@ SRC_NAME = 	main.c \
 			read_xpm_next.c \
 			color_check2.c \
 			open_read_file.c \
-			before_color.c
+			before_color.c \
+			my_put.c
 
 
 ifneq ("$(wildcard $(SDL_PATHO))","")
