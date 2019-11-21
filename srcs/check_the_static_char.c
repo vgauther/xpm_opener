@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:01:45 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 14:05:21 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 22:09:17 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ int		check_the_static_char(char *str)
 	int		end_nb;
 	char	*tmp;
 
-	i = 13;
-	if (ft_strlen(str) != 51)
-		return (1);
 	if (check_begin_the_static_char(str))
 		return (1);
 	if (!(tmp = ft_strdup("[] = {")))
