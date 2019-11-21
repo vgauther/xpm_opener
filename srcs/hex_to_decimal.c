@@ -6,9 +6,11 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 13:31:04 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 13:40:10 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 14:03:22 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/xpm_opener.h"
 
 int		test_base(const char c)
 {

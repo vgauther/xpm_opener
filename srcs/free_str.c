@@ -6,13 +6,13 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:07:09 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/18 16:09:28 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 14:05:39 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
-int free_ret_1(char *str)
+int		free_ret_1(char *str)
 {
 	free(str);
 	return (1);

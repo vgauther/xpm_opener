@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:01:45 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 12:10:24 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/21 14:05:21 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** checking if 'statich char* ' is at the beginning of this line
 */
 
-int check_begin_the_static_char(char *str)
+int		check_begin_the_static_char(char *str)
 {
-	int ret;
+	int	ret;
 
 	ret = 0;
 	if (str[0] != 's' || str[1] != 't' || str[2] != 'a')
@@ -34,27 +34,21 @@ int check_begin_the_static_char(char *str)
 	return (ret);
 }
 
-int check_the_static_char(char *str)
+int		check_the_static_char(char *str)
 {
-	int i;
-	int end_nb;
-	char *tmp;
+	int		i;
+	int		end_nb;
+	char	*tmp;
 
 	i = 13;
 	if (ft_strlen(str) != 51)
-		return(1);
+		return (1);
 	if (check_begin_the_static_char(str))
-		return(1);
-	end_nb = i + ft_strlen("a0053c01fccc4275c61107f5ef06391d");
-	while (i != end_nb)
-	{
-		if (str[i] < 33 || str[i] > 126)
-			return(1);
-		i++;
-	}
+		return (1);
 	if (!(tmp = ft_strdup("[] = {")))
 		return (1);
 	end_nb = 0;
+	i = ft_strlen(str) - ft_strlen(tmp);
 	while (str[i] && tmp[end_nb])
 	{
 		if (str[i] != tmp[end_nb])
@@ -66,5 +60,5 @@ int check_the_static_char(char *str)
 		end_nb++;
 	}
 	free(tmp);
-	return(str[i] ? 1 : 0);
+	return (str[i] ? 1 : 0);
 }
