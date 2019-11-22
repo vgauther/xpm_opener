@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:32:07 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 22:06:37 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/22 12:36:47 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ SDL_Surface		*create_surface_from_data(t_data *data)
 	return (s);
 }
 
-SDL_Surface		*load_xpm(char *name)
+SDL_Surface		*load_xpm(char *name, t_xpm_init xpm)
 {
 	SDL_Surface	*s;
 	t_data		data;
 
-	read_xpm(name, &data);
+	read_xpm(name, &data, xpm);
 	local_messages(0);
 	s = create_surface_from_data(&data);
 	local_messages(1);

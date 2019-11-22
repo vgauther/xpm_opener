@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:25:05 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 14:17:31 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:11:57 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		check_contruction_color_line(char **tmp, int nb_char_for_pix)
 	return (0);
 }
 
-int		construction_of_color_line(char *str, int nb_char_for_pix)
+int		construction_of_color_line(char *str, int nb_char_for_pix, t_data *data)
 {
 	char	**tmp;
 
@@ -54,7 +54,7 @@ int		construction_of_color_line(char *str, int nb_char_for_pix)
 		return (xpm_free_tab_char_with_ret_1(tmp));
 	if (tmp[0][nb_char_for_pix + 3] != '#')
 	{
-		if ((is_this_color_built_in(tmp[0], nb_char_for_pix)))
+		if ((is_this_color_built_in(tmp[0], nb_char_for_pix, data)))
 			return (xpm_free_tab_char_with_ret_1(tmp));
 	}
 	else

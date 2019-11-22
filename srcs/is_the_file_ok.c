@@ -6,20 +6,20 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:52:51 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 13:25:38 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:08:38 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/xpm_opener.h"
 
-int		is_the_file_a_xpm(char *name_file)
+int		is_the_file_a_xpm(char *name_file, t_data *data)
 {
 	if (!(is_good_extension(name_file)))
 	{
 		xpm_error(4, NULL);
 		return (1);
 	}
-	return (check_the_construction(name_file));
+	return (check_the_construction(name_file, data));
 }
 
 int		is_the_file_a_correct_file(char *name_file)
@@ -61,7 +61,7 @@ int		is_only_good_char(char *name_file)
 		i = 0;
 		while (rv.buff[i])
 		{
-			if (rv.buff[i] < 0 || rv.buff[i] > 127)
+			if (rv.buff[i] > 127 || rv.buff[i] < 0)
 			{
 				free(rv.buff);
 				xpm_error(3, NULL);
@@ -86,7 +86,7 @@ int		is_the_file_ok(t_data *data)
 		exit(0);
 	}
 	ft_messages(8, NULL);
-	if (is_the_file_a_xpm(data->file_name))
+	if (is_the_file_a_xpm(data->file_name, data))
 	{
 		exit(0);
 	}

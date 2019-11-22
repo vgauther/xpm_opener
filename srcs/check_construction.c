@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 14:00:32 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/20 16:51:09 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:24:02 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			check_the_construction3(t_data_chk *d, char *buff)
 	return (0);
 }
 
-int			check_the_constr2(char *buff, t_data_chk *d, int *j2, int *j)
+int			check_the_constr2(char *buff, t_data_chk *d, t_data *data)
 {
 	if (buff[0] == '/')
 	{
@@ -71,36 +71,34 @@ int			check_the_constr2(char *buff, t_data_chk *d, int *j2, int *j)
 			return (local_message(0, NULL));
 		if (ft_strcmp(buff, "/* pixels */"))
 			return (local_message(1, buff));
-		d->color_ids[*j2] = 0;
+		d->color_ids[d->j2] = 0;
 		d->color_list_token = 3;
 	}
 	else
 	{
 		if (is_there_good_init_and_end_of_line(buff))
 			return (local_message(2, NULL));
-		if (construction_of_color_line(buff, d->nb_char_for_pix))
+		if (construction_of_color_line(buff, d->nb_char_for_pix, data))
 			return (local_message(10, ft_itoa(d->i)));
-		*j = 0;
-		while (*j != d->nb_char_for_pix)
+		d->j = 0;
+		while (d->j != d->nb_char_for_pix)
 		{
-			d->color_ids[*j2] = buff[*j + 1];
-			*j = *j + 1;
-			*j2 = *j2 + 1;
+			d->color_ids[d->j2] = buff[d->j + 1];
+			d->j = d->j + 1;
+			d->j2 = d->j2 + 1;
 		}
 		d->color_count++;
 	}
 	return (0);
 }
 
-int			check_the_construction(char *name_file)
+int			check_the_construction(char *name_file, t_data *data)
 {
 	char		*buff;
 	int			ret;
-	int			j;
-	int			j2;
 	t_data_chk	d;
 
-	j2 = set_var_check_zero(&d, &j);
+	d.j2 = set_var_check_zero(&d, &d.j);
 	if ((d.fd = open(name_file, O_RDONLY)) < 0)
 		return (1);
 	while ((ret = get_next_line(d.fd, &buff)))
@@ -110,7 +108,7 @@ int			check_the_construction(char *name_file)
 		if (d.color_list_token == 3 && check_the_construction3(&d, buff) == 1)
 			return (1);
 		else if (d.color_list_token == 1 &&
-			check_the_constr2(buff, &d, &j2, &j))
+			check_the_constr2(buff, &d, data))
 			return (1);
 		d.color_list_token = d.color_list_token == 2 ? 1 : d.color_list_token;
 		d.i++;

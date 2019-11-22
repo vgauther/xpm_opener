@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:02:27 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 11:13:06 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/22 12:44:24 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ int main(int ac, char **av)
 	SDL_Renderer *ren;
 	SDL_Event	event;
 	SDL_Window *win;
+	t_xpm_init xpm;
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
 		return 0;
-	s = load_xpm(av[1]);
+	init_xpm(&xpm);
+	s = load_xpm(av[1], xpm);
 	win = SDL_CreateWindow("WIN", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, s->w, s->h, 0);
 	ren = SDL_CreateRenderer(win, -1, 1);
 	r = init_sdl_rect(0, 0, 0, 0);
@@ -62,5 +64,6 @@ int main(int ac, char **av)
 	}
 	return (0);
 	(void)ac;
+	(void)event;
 	(void)av;
 }

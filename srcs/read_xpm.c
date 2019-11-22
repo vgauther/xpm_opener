@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:39:43 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/19 22:31:49 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/22 12:53:39 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ int		recup_all_built_in_color(t_data *data)
 	return (0);
 }
 
-void	read_xpm(char *name, t_data *data)
+void	read_xpm(char *name, t_data *data, t_xpm_init xpm)
 {
 	data->file_name = ft_strdup(name);
 	ft_messages(1, (void *)data->file_name);
-	recup_all_built_in_color(data);
+	data->ck = xpm.ck;
 	ft_messages(12, NULL);
 	ft_messages(5, NULL);
 	is_the_file_ok(data);

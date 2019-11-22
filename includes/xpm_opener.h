@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 00:00:49 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/22 12:24:49 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:19:47 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ typedef struct		s_data_chk
 	int				i;
 }					t_data_chk;
 
+typedef struct		s_xpm_init
+{
+	t_color_known	*ck;
+}					t_xpm_init;
+
 t_color				hex_to_rgb(const char *str);
 void				xpm_free_tab_char(char **tab);
 void				xpm_free_2_tab_char(char **tab, char **tab1);
@@ -84,18 +89,17 @@ int					is_good_extension(char *str);
 int					is_the_file_ok(t_data *data);
 void				ft_messages(int id, void *data);
 void				xpm_error(int id, void *data);
-int					ch_color_already_known(char *str);
+int					ch_color_already_known(char *str, t_data *data);
 int					structure_of_color(t_data *data);
 t_color				color_already_known(char *str, t_data *d);
-SDL_Surface			*load_xpm(char *name);
-void				read_xpm(char *name, t_data *data);
-int					is_this_color_built_in(char *str, int nb_char);
+SDL_Surface			*load_xpm(char *name, t_xpm_init xpm);
+int					is_this_color_built_in(char *str, int nb_char,
+					t_data *data);
 int					is_the_file_ok(t_data *data);
-int					check_the_construction(char *name_file);
+int					check_the_construction(char *name_file, t_data *data);
 int					xpm_free_tab_char_with_ret_1(char **tab);
 int					is_only_numeric_char(char *str);
 int					is_this_a_good_pixel_line(char *str, t_data_chk *d);
-int					construction_of_color_line(char *str, int nb_char_for_pix);
 int					before_color(char *buff, t_data_chk *d);
 int					is_there_good_init_and_end_of_line(char *str);
 int					check_settings(char *str);
@@ -104,7 +108,8 @@ int					free_ret_1(char *str);
 char				*create_save_to_protect_c(t_data *data, char *str);
 int					check_the_construction2(char *buff, t_data_chk *d, int *j2,
 					int *j);
-int					construction_of_color_line(char *str, int nb_char_for_pix);
+int					construction_of_color_line(char *str, int nb_char_for_pix,
+					t_data *data);
 void				open_and_read_file(t_data *data);
 void				xpm_setting(t_data *data, char *buff);
 int					recup_pixel_color(t_data *data, int j, char *buff);
@@ -114,6 +119,7 @@ void				ft_putstr2(char *str, char *str2);
 void				put3_i_2(char *str, int str2, char *str3);
 void				put3_i_13(int str, char *str2, int str3);
 void				ft_putstr3(char *str, char *str2, char *str3);
+void				read_xpm(char *name, t_data *data, t_xpm_init xpm);
 
 /*
 ** read_xpm_next.c
@@ -147,5 +153,11 @@ int					xpm_malloc_error(char *str);
 void				free_colors(t_data *data);
 void				free_color_built_in(t_data *data);
 void				free_pixels(t_data *data);
+
+/*
+** init_xpm.c
+*/
+
+void				init_xpm(t_xpm_init *xpm);
 
 #endif
