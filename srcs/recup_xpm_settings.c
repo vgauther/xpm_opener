@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:08:20 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 18:51:28 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/22 12:15:08 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,17 @@ void		recup_xpm_setting(t_data *data, char *str)
 	char **tmp;
 	char **tmp2;
 
-	tmp = ft_strsplit(str, '"');
-	tmp2 = ft_strsplit(tmp[0], ' ');
+	if ((tmp = ft_strsplit(str, '"')) == NULL)
+	{
+		xpm_malloc_error("recup_xpm_setting");
+		exit(0);
+	}
+	if ((tmp2 = ft_strsplit(tmp[0], ' ')) == NULL)
+	{
+		xpm_free_tab_char(tmp);
+		xpm_malloc_error("recup_xpm_setting");
+		exit(0);
+	}
 	data->height_file = ft_atoi(tmp2[1]);
 	data->width_file = ft_atoi(tmp2[0]);
 	data->nb_of_color = ft_atoi(tmp2[2]);

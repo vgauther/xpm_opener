@@ -6,7 +6,7 @@
 /*   By: vgauther <vgauther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:41:12 by vgauther          #+#    #+#             */
-/*   Updated: 2019/11/21 21:26:25 by vgauther         ###   ########.fr       */
+/*   Updated: 2019/11/22 12:22:20 by vgauther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@ static int				ch_structure_of_color(t_color_known *ck)
 		exit(0);
 	while ((rv.ret = get_next_line(rv.fd, &rv.buff)))
 	{
-		tmp = ft_strsplit(rv.buff, ' ');
-		tmp1 = ft_strsplit(tmp[1], ',');
+		if ((tmp = ft_strsplit(rv.buff, ' ')) == NULL)
+			exit(xpm_malloc_error("ch_structure_of_color"));
+		if ((tmp1 = ft_strsplit(tmp[1], ',')) == NULL)
+		{
+			xpm_free_tab_char(tmp);
+			exit(xpm_malloc_error("ch_structure_of_color"));
+		}
 		ck[i] = ch_ini_color_kn(tmp1[0], tmp1[1], tmp1[2]);
 		ck[i].name = ft_strdup(tmp[0]);
-		xpm_free_tab_char(tmp);
-		xpm_free_tab_char(tmp1);
+		xpm_free_2_tab_char(tmp, tmp1);
 		free(rv.buff);
 		i++;
 	}
@@ -84,7 +88,8 @@ int						is_this_color_built_in(char *str, int nb_char)
 		str[i] = '1';
 		i++;
 	}
-	tmp = ft_strsplit(str, ' ');
+	if ((tmp = ft_strsplit(str, ' ')) == NULL)
+		return (xpm_malloc_error("is_this_color_built_in"));
 	tok = ch_color_already_known(tmp[1]);
 	xpm_free_tab_char(tmp);
 	return (tok);
